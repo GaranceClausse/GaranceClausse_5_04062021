@@ -4,8 +4,7 @@ class TeddyBear {
     constructor(name, price, order) {
  
  
-       this.name = name;
- 
+       this.name = name; 
  
        this.price = price;
 
