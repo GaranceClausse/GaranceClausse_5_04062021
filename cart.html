@@ -30,7 +30,7 @@
 <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
+        <div class="container p-4">
             <a class="navbar-brand" href="index.html">Oriteddy <img src="images/teddy_logo.svg"
                     alt="logo oriteddy : des ours en peluche faits mains" height="40" width="40" /> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -100,7 +100,7 @@
                                                 <p class="mb-2 text-muted text-uppercase small">Couleur: </p>
                                             </div>
                                             <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">                                                    
+                                                <div class="def-number-input number-input safari_only mb-0 w-100">
                                                     <input class="quantity" min="0" name="quantity" value="1"
                                                         type="number">
                                                 </div>
@@ -235,9 +235,9 @@
                                 <span><strong>75 €</strong></span>
                             </li>
                         </ul>
-
-                        <button type="button" class="btn btn-primary btn-block">Finaliser ma commande</button>
-
+                        <a href="order.html">
+                            <button type="button" class="btn btn-primary btn-block">Finaliser ma commande</button>
+                        </a>
                     </div>
                 </div>
                 <!-- Card -->
@@ -255,7 +255,23 @@
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <h5 class="footer__title">A propos</h5>
+                    <ul class="footer__item">
+                        <li class="footer__list">Fonctionnement du site</li>
+                        <li class="footer__list">Conditions générales de vente</li>
+                        <li class="footer__list">Données et confidentialité</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-5">
+                    <h5 class="footer__title">Assistance</h5>
+                    <ul class="footer__item">
+                        <li class="footer__list">Centre d'aide</li>
+                        <li class="footer__list">Nous contacter</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
 
