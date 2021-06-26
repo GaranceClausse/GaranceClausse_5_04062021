@@ -55,11 +55,15 @@
                     </li>
                 </ul>
                 <form class="d-flex">
+
                     <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Panier
-                        <span class="badge bg-dark text-white ms-1 rounded-pill cart_item">0</span>
+                        <a href="cart.html">
+                            <i class="bi-cart-fill me-1"></i>
+                            Panier
+                            <span class="badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill">0</span>
+                        </a>
                     </button>
+
                 </form>
             </div>
         </div>
@@ -75,14 +79,14 @@
                     <div class="small mt-1">SKU: BST-498</div>
                     <h1 class="display-5 fw-bolder teddy_name"></h1>
                     <div class="fs-5 mb-5">
-                        <span class="teddy_price">0€</span>
+                        <span class="teddy_price"></span>
                     </div>
                     <p class="lead">Tous nos ours sont faits mains en France par des artisans formés par nos soins.
                         Notre maison existe depuis plus de 200 ans et s'assure de la qualité de chacun de nos produits.
                         Notre charte qualité est à votre disposition en bas de page, ainsi que nos garanties et
                         conditions d'envoie</p>
-                    <a class="dropdown-toggle" id="choiceDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">Choisir une couleur</a>
+                    <a class="dropdown-toggle" id="choiceDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Choisir une couleur</a>
                     <ul class="dropdown-menu" aria-labelledby="choiceDropdown">
                         <li><a class="dropdown-item teddy_color_choice" href="#!">Marron</a></li>
                         <li><a class="dropdown-item teddy_color_choice" href="#!">Blanc</a></li>
@@ -98,9 +102,9 @@
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                             style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <button class="btn btn-outline-dark flex-shrink-0 add-to-cart" type="button">
                             <i class="bi-cart-fill me-1"></i>
-                            Ajouter au panier
+                            <a href="cart.html"> Ajouter au panier</a>
                         </button>
                     </div>
                 </div>
@@ -131,7 +135,7 @@
                                     <div class="bi-star-fill"></div>
                                 </div>
                                 <!-- Product price-->
-                                29€
+                                <span class="teddy_price"></span>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -165,7 +169,7 @@
                                 </div>
                                 <!-- Product price-->
                                 <span class="text-muted text-decoration-line-through">69€</span>
-                                39€
+                                <span class="teddy_price"></span>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -199,7 +203,7 @@
                                 </div>
                                 <!-- Product price-->
                                 <span class="text-muted text-decoration-line-through">69€</span>
-                                59€
+                                <span class="teddy_price"></span>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -228,7 +232,7 @@
                                     <div class="bi-star-fill"></div>
                                 </div>
                                 <!-- Product price-->
-                                45€
+                                <span class="teddy_price"></span>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -248,19 +252,16 @@
         </div>
     </footer>
 
-     <!-- Bootstrap core JS-->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-   
-     <!-- inclut jQuery via CDN -->
-     <script type="text/javascript"
-         src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
- 
-     <!--Scripts JS-->
-     <script type="text/javascript"
-         src="models/Teddy.js"></script>
-         <script type="text/javascript"
-         src="main.js"></script>
-         
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- inclut jQuery via CDN -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+    <!--Scripts JS-->
+    <script type="text/javascript" src="models/Teddy.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
 </body>
 
 </html>
