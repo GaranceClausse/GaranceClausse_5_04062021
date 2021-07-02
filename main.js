@@ -1,106 +1,197 @@
+/* Mise en page de la page index */
 
- for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
- 
+      
+      for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
+      
 
- let container1 = document.createElement("div");
- container1.className= "col-10 mb-5";
- container1.id = "container" + i;
- $("#teddy_container").append(container1);
+      let container1 = document.createElement("div");
+      container1.className= "col-10 mb-5";
+      container1.id = "container" + i;
+      $("#teddy_container").append(container1);
 
 
- /* Create div */
- let card = document.createElement("div");
- card.className = "card h-100 shadow";
- card.id = "card" + i;
- $("#container" + i).append(card);
+      /* Create div */
+      let card = document.createElement("div");
+      card.className = "card d-flex h-100 justify-content-stretch shadow";
+      card.id = "card" + i;
+      $("#container" + i).append(card);
 
- /* Create image */
- let img = document.createElement ("img");
- /* Set image class +alt */
-  img.className = "card-img-top";
-  img.src = "images/" + teddy.imageUrl;
-  img.alt= teddy.alt;
+      /*create img container*/
+      let img_cont = document.createElement("div");
+        img_cont.className = "w-100 d-flex justify-content-center img_cont" + i;
+        $("#card" + i).append(img_cont);
 
-  /* Add image*/  
-  $("#card" + i).prepend(img);
+      /* Create image */
+      let img = document.createElement ("img");
+      /* Set image class +alt */
+        img.className = "card-img-top img-fluid cover h-100 w-auto";
+        img.src = "images/" + teddy.imageUrl;
+        img.alt= teddy.alt;
+        /* Add image*/  
+        $(".img_cont" + i).prepend(img);
 
-  /* Create card_body */
+        /* Create card_body */
 
-  let card_body = document.createElement("div");
-  card_body.className = "p-4 card-body" + i;
-  $("#card" + i).append(card_body);
+        let card_body = document.createElement("div");
+        card_body.className = "p-4 h-100  d-flex flex-column card-body" + i;
+        $("#card" + i).append(card_body);
 
-  /* Create text-center */
+        /* Create text-center */
 
-  let text_center = document.createElement("div");
-  text_center.className = "text-center title" + i;
-  $(".card-body" + i).append(text_center);
+        let text_center = document.createElement("div");
+        text_center.className = "text-center h-100 d-flex flex-column title" + i;
+        $(".card-body" + i).append(text_center);
 
-  /* Create Teddy's name */
-  let teddy_name =  document.createElement("h5");
-  teddy_name.className = "fw-bolder teddy_name" + i;
-  teddy_name.innerHTML = "L'ours " + teddy.name;
-  $(".title" + i).append(teddy_name);
+        /* Create Teddy's name */
+        let teddy_name =  document.createElement("h5");
+        teddy_name.className = "fw-bolder mb-auto teddy_name" + i;
+        teddy_name.innerHTML = "L'ours " + teddy.name;
+        $(".title" + i).append(teddy_name);
 
-  /* Create reviews */
-  let reviews = document.createElement("div");
-  reviews.className = "d-flex justify-content-center small text-warning mb-2 reviews" + i;
-  $(".title" + i).append(reviews);
+        /* Create reviews */
+        let reviews = document.createElement("div");
+        reviews.className = "d-flex justify-content-center justify-self-end p-3 mb-0 small text-warning reviews" + i;
+        $(".title" + i).append(reviews);
 
-  /*Add stars*/
-  let stars = document.createElement("div");
-  stars.className = "bi-star-fill";
-  $(".reviews" + i).append(stars)*5;
+        /*Add stars*/
+        let stars = document.createElement("div");
+        stars.className = "bi-star-fill";
+        $(".reviews" + i).append(stars);
 
-  /*Add price*/
-  let teddy_price =  document.createElement("span");
-  teddy_price.className = "fw-bolder teddy_price" + i;
-  teddy_price.innerHTML = teddy.price/100 + " €";
-  $(".title" + i).append(teddy_price);
+        /*Add price*/
+        let teddy_price =  document.createElement("div");
+        teddy_price.className = "fw-bolder mb-0 teddy_price" + i;
+        teddy_price.innerHTML = teddy.price/100 + " €";
+        $(".title" + i).append(teddy_price);
 
-  /*Add footer card */
+        /*Add footer card */
 
-  let card_footer = document.createElement("div");
-  card_footer.className = "p-4 pt-0 border-top-0 bg-transparent text-center card-footer" + i;  
-  $("#card" + i).append(card_footer);
+        let card_footer = document.createElement("div");
+        card_footer.className = "d-flex flex-row p-2 pb-3 border-bottom-1 mb-0 mt-auto bg-transparent align-self-center card-footer" + i;  
+        $("#card" + i).append(card_footer);
 
-  /* Add link */
-  let card_link = document.createElement("a");
-  card_link.className = "btn btn-outline-dark mt-auto stretched-link card-link" + i;
-  card_link.href= "page-item.html";
-  card_link.innerHTML= "Voir plus";
-  $(".card-footer" + i).append(card_link);
+        /* Add link */
+        let card_link = document.createElement("a");
+        card_link.className = "btn btn-outline-dark mt-auto stretched-link card-link" + i;
+        card_link.id= teddy._id;
+        card_link.href= "page-item.html";
+        card_link.innerHTML= "Voir plus";
+        $(".card-footer" + i).append(card_link);
 
-  
-  /*<div class="card-body p-4">
-  <div class="text-center">
-      <!-- Product name-->
-      <h5 class="fw-bolder">L'ours Norbert</h5>
-      <!-- Product reviews-->
-      <div class="d-flex justify-content-center small text-warning mb-2">
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-          <div class="bi-star-fill"></div>
-      </div>
-      <!-- Product price-->
+        
+      i++;
+
+      }
+
+
+
+/* Mise en page de page-item */
+
+
+let other_container1 = document.createElement("div");
+other_container1.className= "row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4";
+other_container1.id = "other-container";
+$("#other_item_container").append(other_container1);
+
+for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
+
+
+  let other_container2 = document.createElement("div");
+  other_container2.className= "col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5";
+  other_container2.id = "container2" + i;
+  $("#other-container").append(other_container2);
+
+
+  /* Create div */
+  let other_card = document.createElement("div");
+  other_card.className = "card d-flex h-100 justify-content-stretch shadow";
+  other_card.id = "other-card" + i;
+  $("#container2" + i).append(other_card);
+
+  /*create img container*/
+  let other_img_cont = document.createElement("div");
+    other_img_cont.className = "w-100 d-flex justify-content-center other_img_cont" + i;
+    $("#other-card" + i).append(other_img_cont);
+
+  /* Create image */
+  let img = document.createElement ("img");
+  /* Set image class +alt */
+    img.className = "card-img-top img-fluid cover h-100 w-auto";
+    img.src = "images/" + teddy.imageUrl;
+    img.alt= teddy.alt;
+    /* Add image*/  
+    $(".other_img_cont" + i).prepend(img);
+
+    
+    i++;
+
+}
+
+
+
+/*<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+<div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
+    <div class="card h-100">
+        <!-- Product image-->
+        <img class="card-img-top" src="images/teddy_Norbert.webp"
+            alt="photo d'un ours en peluche fait main : Norbert" />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">Norbert</h5>
+                <!-- Product reviews-->
+                <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                </div>
+                <!-- Product price-->
                 <span class="teddy_price"></span>
-             </div>
-         </div>
-         <!-- Product actions-->
-         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-             <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link"
-                     href="page-item.html">Voir plus</a>
-             </div>
-         </div>
-     </div>
- </div>
-      */
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
+            </div>
+        </div>
+    </div>
+</div>*/
 
-i++;
 
- }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
