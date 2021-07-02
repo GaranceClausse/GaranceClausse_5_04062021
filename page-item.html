@@ -8,6 +8,27 @@
     <meta name="author" content="" />
     <title>Votre ours en peluche fait main || Oriteddy </title>
 
+    <!--Twitter card-->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name=”twitter:creator” content=”@Oriteddy”>
+    <meta name="twitter:title" content="Oriteddy: vos ours en peluche faits mains" />
+    <meta name="twitter:description"
+        content="Des ours faits mains en France dans notre atelier artisanal : de la douceur pour les petits et les grands!" />
+    <meta name="twitter:image"
+        content="https://m.media-amazon.com/images/I/51FcGZHFPtL._AC_SS450_.jpg" />
+    <meta name="twitter:image:alt" content="Photo d'un ours en peluche'" />
+
+    <!--Open graph-->
+    <meta property="og:title" content="Oriteddy">
+    <meta property="og:site_name" content="Oriteddy: vos ours en peluche faits mains">
+    <meta property="og:url" content="">
+    <meta property="og:description"
+        content="Des ours faits mains en France dans notre atelier artisanal : de la douceur pour les petits et les grands!">
+    <meta property="og:type" content="website">
+    <meta property="og:image"
+        content="https://m.media-amazon.com/images/I/51FcGZHFPtL._AC_SS450_.jpg">
+
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -28,6 +49,7 @@
 
 
 <body>
+    
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container p-4">
@@ -38,32 +60,29 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Accueil</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">A propos</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Boutique</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">Tous les produits</a></li>
+                            <li><a class="dropdown-item" href="index.html">Tous les produits</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">Nos ours phares</a></li>
-                            <li><a class="dropdown-item" href="#!">Nouveaux</a></li>
+                            <li><a class="dropdown-item" href="index.html">Nos ours phares</a></li>
+                            <li><a class="dropdown-item" href="index.html">Nouveaux</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex">
-
+                <form class="d-flex position-relative">
                     <button class="btn btn-outline-dark" type="submit">
-                        <a href="cart.html">
+                        <a href="cart.html" class="stretched-link">
                             <i class="bi-cart-fill me-1"></i>
                             Panier
                             <span class="badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill">0</span>
                         </a>
                     </button>
-
                 </form>
             </div>
         </div>
@@ -85,26 +104,28 @@
                         Notre maison existe depuis plus de 200 ans et s'assure de la qualité de chacun de nos produits.
                         Notre charte qualité est à votre disposition en bas de page, ainsi que nos garanties et
                         conditions d'envoie</p>
-                    <a class="dropdown-toggle" id="choiceDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Choisir une couleur</a>
-                    <ul class="dropdown-menu" aria-labelledby="choiceDropdown">
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Marron</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Blanc</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Noir</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Chocolat</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Rose</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Marron clair</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Marron foncé</a></li>
-                        <li><a class="dropdown-item teddy_color_choice" href="#!">Bleu</a></li>
-                    </ul>
-                    </a>
+                    <div class="mb-5">
+                        <a class="dropdown-toggle mb-5" id="choiceDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Choisir une couleur</a>
 
+                        <ul class="dropdown-menu" aria-labelledby="choiceDropdown">
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Marron</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Blanc</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Noir</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Chocolat</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Rose</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Marron clair</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Marron foncé</a></li>
+                            <li><a class="dropdown-item teddy_color_choice" href="#!">Bleu</a></li>
+                        </ul>
+                        </a>
+                    </div>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
+                        <input class="form-control text-center me-3 ps-2 pe-1" id="inputQuantity" type="number" min="0" value="1"
                             style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0 add-to-cart" type="button">
+                        <button class="btn btn-outline-dark flex-shrink-0 add-to-cart position-relative" type="button">
                             <i class="bi-cart-fill me-1"></i>
-                            <a href="cart.html"> Ajouter au panier</a>
+                            <a href="cart.html" class="stretched-link"> Ajouter au panier</a>
                         </button>
                     </div>
                 </div>
@@ -113,10 +134,10 @@
     </section>
     <!-- Related items section-->
     <section class="py-5 bg-light">
-        <div class="container px-4 px-lg-5 mt-5">
+        <div class="container px-4 px-lg-4 mt-5">
             <h2 class="fw-bolder mb-4">Ours qui pourraient également vous intéresser</h2>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+                <div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
                         <img class="card-img-top" src="images/teddy_Norbert.webp"
@@ -140,12 +161,12 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Voir plus</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col mb-5">
+                <div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
                     <div class="card h-100">
                         <!-- Promotion badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
@@ -174,12 +195,12 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Voir plus</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col mb-5">
+                <div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
                     <div class="card h-100">
                         <!-- Promotion badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
@@ -208,12 +229,12 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Voir plus</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col mb-5">
+                <div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
                         <img class="card-img-top" src="images/teddy_Gustav.webp"
@@ -237,7 +258,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Voir plus</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
                             </div>
                         </div>
                     </div>
@@ -245,8 +266,8 @@
             </div>
         </div>
     </section>
-     <!-- Footer-->
-     <footer class="py-5 bg-dark">
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-5">

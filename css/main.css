@@ -6,3 +6,8 @@ body {
 .navbar-brand {
     font-family: 'Monoton', cursive;
 }
+
+.test {
+    background-color: blue;
+    height: 100px;
+}
