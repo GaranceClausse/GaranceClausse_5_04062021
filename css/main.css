@@ -26,3 +26,7 @@ body {
 .card-img-top{
     object-fit: cover;
 }
+
+.product_quantity {
+    max-width: 3rem;
+}
