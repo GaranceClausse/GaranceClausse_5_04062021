@@ -1,5 +1,4 @@
 /* Mise en page de la page index */
-
       
       for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
       
@@ -81,7 +80,7 @@
         
       i++;
 
-      }
+      };
 
 
 
@@ -95,10 +94,15 @@
       /*extraction id */
       const realId = queryString_url_id.slice(1);
 
-      
+      /*affichage du produit sélectionné par l'id*/
+     /* let teddy_selected = fetch(`http://localhost:3000/api/teddies/${realId}`);*/
+
+     const productSelected = teddies.find((element) => element._id === realId);
+     console.log(productSelected);
+
 
      /* Code HTML de la partie décrivant le produit sélectionné */
-
+      /* Création container */
      let container_item = document.createElement("div");
      container_item.className = "container container_page_item px-4 px-lg-5 my-5";
      $("#container_page_item").append(container_item);
@@ -107,28 +111,30 @@
      sub_container.className = "row sub_container gx-4 gx-lg-5";
      $(".container_page_item").append(sub_container);
 
+     /* Ajout de l'image */
      let product_pic = document.createElement("div");
      product_pic.className = "product_pic col-md-6";
      $(".sub_container").append(product_pic);
 
      let product_img = document.createElement("img");
      product_img.className = "card-img-top product_img mb-5 mb-md-0";
-     product_img.src= "images/" + teddy.imageUrl;
-     product_img.alt = teddy.alt;
+     product_img.src= "images/" + productSelected.imageUrl;
+     product_img.alt = productSelected.alt;
      $(".product_pic").append(product_img);
 
+      /*Ajout du bandeau descriptif*/
      let product_description = document.createElement("div");
      product_description.className = "product_description col-md-6";
      $(".sub_container").append(product_description);
 
      let product_name = document.createElement("h1");
      product_name.className = "display-5 fw-bolder teddy_name";
-     product_name.innerHTML = "Votre ours " + teddy.name;
+     product_name.innerHTML = "Votre ours " + productSelected.name;
      $(".product_description").append(product_name);
 
      let product_price = document.createElement("div");
      product_price.className = "product_price fs-5 mb-5";
-     product_price.innerHTML = teddy.price/100 + "€";
+     product_price.innerHTML = productSelected.price/100 + "€";
      $(".product_description").append(product_price);
 
      let product_explain = document.createElement("p");
@@ -136,6 +142,7 @@
      product_explain.innerHTML = "Tous nos ours sont faits mains en France par des artisans formés par nos soins. Notre maison existe depuis plus de 200 ans et s'assure de la qualité de chacun de nos produits. Notre charte qualité est à votre disposition en bas de page, ainsi que nos garanties et conditions d'envoie";
      $(".product_description").append(product_explain);
 
+      /* Choix des options*/
      let product_form_container = document.createElement("div");
      product_form_container.className = "product_form_container mb-5";
      $(".product_description").append(product_form_container);
@@ -158,9 +165,10 @@
 
      let product_form_option1 = document.createElement("select");
      product_form_option1.value = "";
-     product_form_option1.innerHTML = teddy.color;
+     product_form_option1.innerHTML = productSelected.color;
      $(".product_form_select").append(product_form_option1);
 
+      /* Bouton d'ajout au panier + choix nombre articles*/
      let product_add_to_cart_container = document.createElement("div");
      product_add_to_cart_container.className = "d-flex flex-row product_add_to_cart_container";
      $(".product_description").append(product_add_to_cart_container);
@@ -192,6 +200,9 @@
      $(".product_add_to_cart").append(cart_link);
 
 
+
+
+/* Mise en page des produits supplémentaires */
 
      for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
       
@@ -273,84 +284,34 @@
         
       i++;
 
-      }
+      };
 
-
-     
-
-/*let other_container1 = document.createElement("div");
-other_container1.className= "row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4";
-other_container1.id = "other-container";
-$("#other_item_container").append(other_container1);
-
-for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
-
-
-  let other_container2 = document.createElement("div");
-  other_container2.className= "col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5";
-  other_container2.id = "container2" + i;
-  $("#other-container").append(other_container2);
-
-
-  /* Create div 
-  let other_card = document.createElement("div");
-  other_card.className = "card d-flex h-100 justify-content-stretch shadow";
-  other_card.id = "other-card" + i;
-  $("#container2" + i).append(other_card);
-
-  /*create img container
-  let other_img_cont = document.createElement("div");
-    other_img_cont.className = "w-100 d-flex justify-content-center other_img_cont" + i;
-    $("#other-card" + i).append(other_img_cont);
-
-  /* Create image 
-  let img = document.createElement ("img");
-  /* Set image class +alt 
-    img.className = "card-img-top img-fluid cover h-100 w-auto";
-    img.src = "images/" + teddy.imageUrl;
-    img.alt= teddy.alt;
-    /* Add image
-    $(".other_img_cont" + i).prepend(img);
-
-    
-    i++;
-
-}
-
-
-
-/*<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
-<div class="col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5">
-    <div class="card h-100">
-        <!-- Product image-->
-        <img class="card-img-top" src="images/teddy_Norbert.webp"
-            alt="photo d'un ours en peluche fait main : Norbert" />
-        <!-- Product details-->
-        <div class="card-body p-4">
-            <div class="text-center">
-                <!-- Product name-->
-                <h5 class="fw-bolder">Norbert</h5>
-                <!-- Product reviews-->
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                </div>
-                <!-- Product price-->
-                <span class="teddy_price"></span>
-            </div>
-        </div>
-        <!-- Product actions-->
-        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto stretched-link" href="#">Voir plus</a>
-            </div>
-        </div>
-    </div>
-</div>*/
-
-
+      if (productSelected._id === "5beaacd41c9d440000a57d97") {
+        $(document).ready(function(){
+          $("div").remove("#item_container5");
+        })
+      };
+      if (productSelected._id === "5be9c8541c9d440000665243") {
+        $(document).ready(function(){
+          $("div").remove("#item_container1");
+        })
+      };
+      if (productSelected._id === "5beaa8bf1c9d440000a57d94") {
+        $(document).ready(function(){
+          $("div").remove("#item_container2");
+        })
+      };
+      if (productSelected._id === "5beaaa8f1c9d440000a57d95") {
+        $(document).ready(function(){
+          $("div").remove("#item_container3");
+        })
+      };
+      if (productSelected._id === "5beaabe91c9d440000a57d96") {
+        $(document).ready(function(){
+          $("div").remove("#item_container4");
+        })
+      };
+      
 
 
 
