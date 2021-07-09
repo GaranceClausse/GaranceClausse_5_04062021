@@ -7,6 +7,7 @@ const teddies = [
     "imageUrl": "teddy_Norbert.webp",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "alt": "photo d'un ours en peluche fait main : Norbert",
+    
   },
   {
     "colors": [
@@ -20,6 +21,7 @@ const teddies = [
     "imageUrl": "teddy_Arnold.webp",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "alt": "photo d'un ours en peluche fait main : Arnold",
+    
   },
   {
     "colors": [

@@ -163,10 +163,18 @@
      product_form_select.id = "product_option"
      $(".product_form").append(product_form_select);
 
-     let product_form_option1 = document.createElement("select");
-     product_form_option1.value = "";
-     product_form_option1.innerHTML = productSelected.color;
-     $(".product_form_select").append(product_form_option1);
+
+     /*Form adapté au nombre d'options et leurs values */
+     
+     /*for (let j = 1; j < optionChoice.length; j++) for (color of colors) {  
+       
+     const optionChoice = productSelected.color; 
+      let structureOption = document.createElement("select");   
+       structureOption.value = j;
+       structureOption.innerHTML = optionChoice[j];
+     };
+
+     $("#product_option").append(structureOption);*/
 
       /* Bouton d'ajout au panier + choix nombre articles*/
      let product_add_to_cart_container = document.createElement("div");
@@ -286,6 +294,8 @@
 
       };
 
+      /* Retirer carte déjà affichée*/
+
       if (productSelected._id === "5beaacd41c9d440000a57d97") {
         $(document).ready(function(){
           $("div").remove("#item_container5");
@@ -313,44 +323,61 @@
       };
       
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  /* Add to cart : Ajout au panier */
 
- $('.add-to-cart').on('click', (e) => {
+  const btn_add_to_cart = document.querySelector(".product_add_to_cart");
+  btn_add_to_cart.addEventListener("click", (event)=>{
+    event.preventDefault();
+
+    let productChosen = [ {
+      _id: productSelected._id,
+      name: productSelected.name,
+      price: productSelected.price,
+      imageUrl: productSelected.imageUrl,
+      alt: productSelected.alt,
+    }];
+    // Local storage //
+
+  // Stocker les valeurs dans local storage //
+
+  let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
+  const popupConfirm = () =>{
+    if(window.confirm(`Votre ours : ${productSelected.name} à ${productSelected.price/100} € a bien été ajouté au panier!
+Consulter le panier ou continuer mes achats?`)){
+      window.location.href = "cart.html";
+    }else{
+      window.location.href = "index.html";
+    }
+  };
+
+  //voir s'il y a produit dans le panier//
+  if(productInLocalStorage){
+    productInLocalStorage.push(productChosen);
+    localStorage.setItem("product", JSON.stringify(productInLocalStorage));
+    console.log(productInLocalStorage);
+    popupConfirm();
+  }
+  else{
+    productInLocalStorage = [];
+    productInLocalStorage.push(productChosen);
+    localStorage.setItem("product", JSON.stringify(productInLocalStorage));
+    console.log(productInLocalStorage);
+    popupConfirm();
+  };
+  });
+
+  
+  
+
+
+
+
+
+
+
+
+
+ /*$('.add-to-cart').on('click', (e) => {
    addToCart(e.currentTarget)
  })
  
