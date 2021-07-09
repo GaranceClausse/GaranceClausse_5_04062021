@@ -2,90 +2,119 @@
 
   let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
 
-  /* Création de la page panier de manière dynamique */
+  
+
+     /* si le panier est vide */
+     if(productInLocalStorage === null){
+        $(document).ready(function(){
+            $("div").remove("#cart_container");
+            let emptyCart = document.createElement("h5");
+            emptyCart.className = "p-4 emptyCart";
+            emptyCart.innerHTML = "Le panier est vide!"
+            $("#big_cart_container").append(emptyCart);
+          })
+
+    }else{
+
+        /* Création de la page panier de manière dynamique */
   
       /* Création container */
       let container_cart = document.createElement("div");
       container_cart.className = "container_cart mb-3";
       $("#cart_container").append(container_cart);
 
-      let sub_container_cart = document.createElement("div");
-      sub_container_cart.className = "pt-4 sub_container_cart wish-list";
-      $(".container_cart").append(sub_container_cart);
+      
 
-      /* Ajout du titre : nombre d'articles dans le panier */
-      let title_cart = document.createElement("h5");
-      title_cart.className = "title_cart mb-4";
-      title_cart.innerHTML = "Panier : ";
-      $(".sub_container_cart").append(title_cart);
+  for(k= 0; k<productInLocalStorage.length; k++) {
+
+    let sub_container_cart = document.createElement("div");
+    sub_container_cart.className = "pt-4 wish-list sub_container_cart" + k;
+    $(".container_cart").append(sub_container_cart);
+
+    /* Ajout du titre : nombre d'articles dans le panier */
+    let title_cart = document.createElement("h5");
+    title_cart.className = "mb-4 title_cart" + k;
+    title_cart.innerHTML = "Panier : ";
+    $(".sub_container_cart" + k).append(title_cart);
 
       let container_cart_card = document.createElement("div");
-      container_cart_card.className = "row mb-4 container_cart_card";
-      $(".sub_container_cart").append(container_cart_card);
+      container_cart_card.className = "row mb-4 container_cart_card" + k;
+      $(".sub_container_cart" + k).append(container_cart_card);
 
       let sub_container_cart_card = document.createElement("div");
-      sub_container_cart_card.className = "col-md-5 col-lg-3 col-xl-3 sub_container_cart_card";
-      $(".container_cart_card").append(sub_container_cart_card);
+      sub_container_cart_card.className = "col-md-5 col-lg-3 col-xl-3 sub_container_cart_card" + k;
+      $(".container_cart_card" + k).append(sub_container_cart_card);
 
       let img_container_cart_card = document.createElement("div");
-      img_container_cart_card.className = "view zoom overlay z-depth-1 rounded mb-3 mb-md-0 img_container_cart_card";
-      $(".sub_container_cart_card").append(img_container_cart_card);
+      img_container_cart_card.className = "view zoom overlay z-depth-1 rounded mb-3 mb-md-0 img_container_cart_card" + k;
+      $(".sub_container_cart_card" + k).append(img_container_cart_card);
 
       /* Create image */ {
       let img_cart_card = document.createElement ("img");
       /* Set image class +alt */
       img_cart_card.className = "card-img-top img-fluid cover h-100 w-100";
-      img_cart_card.src = "images/teddy_Arnold.webp";
+      img_cart_card.src = "images/" + productInLocalStorage[k].imageUrl;
         /* Add image*/  
-    $(".img_container_cart_card").append(img_cart_card);}
+    $(".img_container_cart_card" + k).append(img_cart_card);}
 
     /* Carte descriptive du produit ajouté */
     let item_cart_card = document.createElement("div");
-    item_cart_card.className = "item_cart_card col-md-7 col-lg-9 col-xl-9 d-flex row";
-    $(".container_cart_card").append(item_cart_card);
+    item_cart_card.className = "col-md-7 col-lg-9 col-xl-9 d-flex row item_cart_card" + k;
+    $(".container_cart_card" + k).append(item_cart_card);
 
     let sub_item_cart_card = document.createElement("div");
-    sub_item_cart_card.className = "sub_item_cart_card d-flex row";
-    $(".item_cart_card").append(sub_item_cart_card);
+    sub_item_cart_card.className = "d-flex row sub_item_cart_card" + k;
+    $(".item_cart_card" + k).append(sub_item_cart_card);
 
     let sub2_item_cart_card = document.createElement("div");
-    sub2_item_cart_card.className = "sub2_item_cart_card justify-content-between";
-    $(".sub_item_cart_card").append(sub2_item_cart_card);
+    sub2_item_cart_card.className = "justify-content-between sub2_item_cart_card" + k;
+    $(".sub_item_cart_card" + k).append(sub2_item_cart_card);
 
     let teddy_name_cart = document.createElement("h5");
-    teddy_name_cart.className = "teddy_name_cart";
-    teddy_name_cart.innerHTML = "Votre ours : ";
-    $(".sub2_item_cart_card").append(teddy_name_cart);
+    teddy_name_cart.className = "teddy_name_cart" + k;
+    teddy_name_cart.innerHTML = "Votre ours : " + productInLocalStorage[k].name;
+    $(".sub2_item_cart_card" + k).append(teddy_name_cart);
+
+    let teddy_price_cart = document.createElement("div");
+    teddy_price_cart.className = "py-2 teddy_price_cart" + k;
+    teddy_price_cart.innerHTML = "Prix : " + productInLocalStorage[k].price/100 + "€";
+    $(".sub2_item_cart_card" + k).append(teddy_price_cart);
 
     let teddy_quantity_cart = document.createElement("div");
-    teddy_quantity_cart.className = "def-number-input number-input safari_only mb-0 w-100 teddy_quantity_cart";
-    $(".sub_item_cart_card").append(teddy_quantity_cart);
+    teddy_quantity_cart.className = "def-number-input number-input safari_only mb-0 w-100 teddy_quantity_cart" + k;
+    $(".sub_item_cart_card" + k).append(teddy_quantity_cart);
 
     let product_quantity_cart = document.createElement("input");
-     product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart";
+     product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
      product_quantity_cart.type = "number";
      product_quantity_cart.min = "0";
      product_quantity_cart.value = "1";
-     $(".teddy_quantity_cart").append(product_quantity_cart);
+     $(".teddy_quantity_cart" + k).append(product_quantity_cart);
 
      let remove_cart = document.createElement("div");
-     remove_cart.className = "remove_cart d-flex justify-content-between align-items-center";
-     $(".item_cart_card").append(remove_cart);
+     remove_cart.className = "d-flex justify-content-between align-items-center remove_cart" + k;
+     $(".item_cart_card" + k).append(remove_cart);
 
      let remove_cart_container = document.createElement("div");
-     remove_cart_container.className = "remove_cart_container mt-auto";
-     $(".remove_cart").append(remove_cart_container);
+     remove_cart_container.className = "mt-3 remove_cart_container" + k;
+     $(".remove_cart" + k).append(remove_cart_container);
 
      let remove_cart_btn = document.createElement("a");
-    remove_cart_btn.className = "card-link-secondary remove_cart_btn small text-uppercase mr-3";
+    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 remove_cart_btn" + k;
     remove_cart_btn.type = "button";
     remove_cart_btn.href= "#!";
     remove_cart_btn.innerHTML= "Retirer cet ours";
-    $(".remove_cart_container").append(remove_cart_btn);
+    $(".remove_cart_container" + k).append(remove_cart_btn);
 
     let remove_cart_icon = document.createElement("i");
-     remove_cart_icon.className = "remove_cart_icon px-3 fas fa-trash-alt mr-1";
-     $(".remove_cart_btn").prepend(remove_cart_icon);
+     remove_cart_icon.className = "px-3 fas fa-trash-alt mr-1 remove_cart_icon" + k;
+     $(".remove_cart_btn" + k).prepend(remove_cart_icon);
+
+    let separationItem = document.createElement("hr");
+    separationItem.className = "mb-4" + k;
+    $(".sub_container_cart" + k).prepend(separationItem);
+      }
+    };
 
 
 
