@@ -99,13 +99,19 @@
      remove_cart_container.className = "mt-3 remove_cart_container" + k;
      $(".remove_cart" + k).append(remove_cart_container);
 
-     let remove_cart_btn = document.createElement("a");
-    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 remove_cart_btn" + k;
+     /*Bouton supprimer l'article*/
+     let remove_cart_btn = document.createElement("button");
+    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 delete_btn remove_cart_btn" + k;
     remove_cart_btn.type = "button";
     remove_cart_btn.href= "#!";
     remove_cart_btn.innerHTML= "Retirer cet ours";
     $(".remove_cart_container" + k).append(remove_cart_btn);
-
+/*
+    
+    remove_cart_btn[k].addEventListener ("onclick", (event)=>{
+        $("div").remove(".container_cart_card" + k);
+      });
+*/
     let remove_cart_icon = document.createElement("i");
      remove_cart_icon.className = "px-3 fas fa-trash-alt mr-1 remove_cart_icon" + k;
      $(".remove_cart_btn" + k).prepend(remove_cart_icon);
@@ -116,6 +122,19 @@
       }
     };
 
+    
+         
+   /* 
+    let remove_btn = document.querySelectorAll(".delete_btn");
+    for (let l=0; l < remove_btn.length; l++) {
+    remove_btn[l].addEventListener("click", (event)=>{
+    
+    let id_delete = productInLocalStorage[l].id_productSelected;*/
+
+    /* Supprimer l'élément sélectionné*/
+   /* productInLocalStorage = productInLocalStorage.filter(el => el.id_productSelected == id_delete);
+    });
+    }
 
 
 
