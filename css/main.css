@@ -6,3 +6,27 @@ body {
 .navbar-brand {
     font-family: 'Monoton', cursive;
 }
+
+.img_cont1{
+    height: 170px;
+}
+.img_cont2{
+    height: 170px;
+}
+.img_cont3{
+    height: 170px;
+}
+.img_cont4{
+    height: 170px;
+}
+.img_cont5{
+    height: 170px;
+}
+
+.card-img-top{
+    object-fit: cover;
+}
+
+.product_quantity {
+    max-width: 3rem;
+}
