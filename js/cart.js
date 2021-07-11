@@ -9,14 +9,14 @@
         $(document).ready(function(){
             $("div").remove("#cart_container");
             let emptyCart = document.createElement("h5");
-            emptyCart.className = "p-4 emptyCart";
+            emptyCart.className = "p-4 text-center display-2 emptyCart";
             emptyCart.innerHTML = "Le panier est vide!"
             $("#big_cart_container").prepend(emptyCart);
           })
 
     }else{
 
-        /* Création de la page panier de manière dynamique */
+        /**************************************************Création de la page panier de manière dynamique */
   
       /* Création container */
       let container_cart = document.createElement("div");
@@ -26,7 +26,7 @@
       /* Ajout du titre : nombre d'articles dans le panier */
     let title_cart = document.createElement("h5");
     title_cart.className = "mb-4 title_cart";
-    title_cart.innerHTML = "Votre panier : ";
+    title_cart.innerHTML = "Votre panier : " + productInLocalStorage.length + " produit(s)";
     $(".container_cart").append(title_cart);
 
     /* Ajout des articles */
@@ -100,9 +100,9 @@
      remove_cart_container.className = "mt-3 remove_cart_container" + k;
      $(".remove_cart" + k).append(remove_cart_container);
 
-     /*Bouton supprimer l'article*/
+     /**********Bouton supprimer l'article : html*/
      let remove_cart_btn = document.createElement("button");
-    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 p-2 rounded delete_btn remove_cart_btn" + k;
+    remove_cart_btn.className = "btn btn-primary btn-block card-link-secondary small text-uppercase mr-3 p-2 rounded delete_btn remove_cart_btn" + k;
     remove_cart_btn.type = "button";
     remove_cart_btn.href= "#!";
     remove_cart_btn.innerHTML= "Retirer cet ours";
@@ -121,10 +121,16 @@
       }
 
     };
+/*****************************Html du bouton panier */
 
+let cartBtnPill = document.querySelectorAll("cartBtn");
+cartBtnPill = document.createElement("span");
+cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
+cartBtnPill.innerHTML = productInLocalStorage.length;
+$(".cartBtn").append(cartBtnPill);
     
          
-/* Bouton supprimer l'article */
+/************** Bouton supprimer l'article : fonctionnalité */
     let remove_btn = document.querySelectorAll(".delete_btn");
     for (let l=0; l < remove_btn.length; l++) {
     remove_btn[l].addEventListener("click", (event)=>{
@@ -141,7 +147,7 @@
     /****************************************************** Bouton tout supprimer : delete all */
     /* Injection HTML*/
     let remove_all_btn = document.createElement("button");
-    remove_all_btn.className = "card-link-secondary small text-uppercase w-100 mr-3 p-3 rounded delete_all_btn remove_all_btn";
+    remove_all_btn.className = "btn btn-primary btn-block card-link-secondary small text-uppercase w-100 mr-3 p-3 rounded delete_all_btn remove_all_btn";
     remove_all_btn.type = "button";
     remove_all_btn.href= "#!";
     remove_all_btn.innerHTML= "Vider le panier";
@@ -155,44 +161,221 @@
     window.location.href = "cart.html";
     });
 
-/* Insertion du prix total */
-/*let cart_price_list = document.createElement("ul");
-cart_price_list.className = "list-group list-group-flush cart_price_list";
+/* *****************************Insertion du prix total */
+/***Mettre les valeurs dans une array */
+let total_price_calcul = [ ];
+for (let m = 0; m < productInLocalStorage.length; m ++){
+    total_price_calcul.push( productInLocalStorage[m].price);    
+}
+/*******Addition des valeurs de la liste */
+const reducer = (acc, cur) => acc + cur;
+const total_price = total_price_calcul.reduce(reducer, 0);
+
+
+let cart_price_title = document.createElement("h5");
+cart_price_title.className = "mb-3 cart_price_title";
+cart_price_title.innerHTML = "Prix total"
+$("#cart_price").append(cart_price_title);
+
+let cart_price_list = document.createElement("ul");
+cart_price_list.className = "list-group list-group-flush p-3 cart_price_list";
 $("#cart_price").append(cart_price_list);
 
-let total_price = document.querySelectorAll(".teddy_price");
 
-    let cart_price_list_total = document.createElement("li");
+/****************Récapitulatif prix commande */
+let cart_price_list_total = document.createElement("li");
 cart_price_list_total.className = "list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 cart_price_list_total";
-cart_price_list_total.innerHTML = "Prix de vos produits" + total_price;
-$(".cart_price_list").append(cart_price_list_total);*/
+cart_price_list_total.innerHTML = "Prix de vos produits :  ";
+$(".cart_price_list").append(cart_price_list_total);
+
+let totalPrice = document.createElement("span");
+totalPrice.innerHTML = total_price/100 + " €";
+$(".cart_price_list_total").append(totalPrice);
+
+let cart_delivery = document.createElement("li");
+cart_delivery.className = "list-group-item d-flex justify-content-between align-items-center px-0 cart_delivery";
+cart_delivery.innerHTML = "Livraison : ";
+$(".cart_price_list").append(cart_delivery);
+
+let totalDelivery = document.createElement("span");
+totalDelivery.innerHTML = "Gratuite";
+$(".cart_delivery").append(totalDelivery);
+
+let cart_total_price = document.createElement("li");
+cart_total_price.className = "list-group-item d-flex bg-primary rounded justify-content-between align-items-center border-2 px-0 mb-3 cart_total_price";
+cart_total_price.innerHTML = "Prix total (dont TVA) :  ";
+$(".cart_price_list").append(cart_total_price);
+
+let cartTotalPrice = document.createElement("span");
+cartTotalPrice.className = "bold";
+cartTotalPrice.innerHTML = total_price/100 + " €";
+$(".cart_total_price").append(cartTotalPrice);
+
+/****************************************Formulaire de contact */
+
+let formContainer = document.createElement("article");
+formContainer.className = "formContainer";
+$("#cart_price").append(formContainer);
+
+let formTitle = document.createElement("h4");
+formTitle.className = "formTitle";
+formTitle.innerHTML = "Informations de livraison";
+$(".formContainer").append(formTitle);
+
+let formField = document.createElement("form");
+formField.className = "p-3 formField";
+$(".formContainer").append(formField);
 
 
 
-/* <<ul class="list-group list-group-flush">
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                Prix de vos produits
-                                <span>75 €</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                Livraison
-                                <span>Gratuite</span>
-                            </li>
-                            <li
-                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                <div>
-                                    <strong>Prix total</strong>
-                                    <strong>
-                                        <p class="mb-0">(dont TVA)</p>
-                                    </strong>
-                                </div>
-                                <span><strong>75 €</strong></span>
-                            </li>
-                        </ul>
-                        <a href="order.html">
-                            <button type="button" class="btn btn-primary btn-block">Finaliser ma commande</button>
-                        </a>
 
-                        */
+/**Nom */
+let formGroup1 = document.createElement("div");
+formGroup1.className = "p-1 formGroup1";
+$(".formContainer").append(formGroup1);
 
+let formName = document.createElement("label");
+formName.className = "formName";
+formName.htmlFor = "name";
+formName.innerHTML = "Nom : ";
+$(".formGroup1").append(formName);
+
+let formNameInput = document.createElement("input");
+formNameInput.className = "form-control formNameInput";
+formNameInput.id= "name";
+formNameInput.name = "name";
+formNameInput.value = "";
+formNameInput.type = "text";
+formNameInput.placeholder = "Tapez votre Nom";
+$(".formGroup1").append(formNameInput);
+
+/**Prénom */
+let formGroup2 = document.createElement("div");
+formGroup2.className = "p-1 formGroup2";
+$(".formContainer").append(formGroup2);
+
+let formSurName = document.createElement("label");
+formSurName.className = "formSurName";
+formSurName.htmlFor = "surname";
+formSurName.innerHTML = "Prénom : ";
+$(".formGroup2").append(formSurName);
+
+let formSurNameInput = document.createElement("input");
+formSurNameInput.className = "form-control formSurNameInput";
+formSurNameInput.id= "surname";
+formSurNameInput.value = "";
+formSurNameInput.type = "text";
+formSurNameInput.placeholder = "Tapez votre Prénom";
+$(".formGroup2").append(formSurNameInput);
+
+/**Adresse email */
+let formGroup3 = document.createElement("div");
+formGroup3.className = "p-1 formGroup3";
+$(".formContainer").append(formGroup3);
+
+
+let formEmail = document.createElement("label");
+formEmail.className = "formEmail";
+formEmail.htmlFor = "email";
+formEmail.innerHTML = "Email : ";
+$(".formGroup3").append(formEmail);
+
+let formEmailInput = document.createElement("input");
+formEmailInput.className = "form-control formEmailInput";
+formEmailInput.id= "formEmail";
+formEmailInput.type = "email";
+formEmailInput.placeholder = "Tapez votre Email";
+$(".formGroup3").append(formEmailInput);
+
+/****Adresse de livraison */
+
+let formGroup4 = document.createElement("div");
+formGroup4.className = "p-1 formGroup4";
+$(".formContainer").append(formGroup4);
+
+
+let formAdress = document.createElement("label");
+formAdress.className = "formAdress";
+formAdress.htmlFor = "Adress";
+formAdress.innerHTML = "Adresse : ";
+$(".formGroup4").append(formAdress);
+
+let formAdressInput = document.createElement("textarea");
+formAdressInput.className = "form-control formAdressInput";
+formAdressInput.id= "formAdress";
+formAdressInput.rows = "4";
+formAdressInput.cols = "50";
+formAdressInput.placeholder = "N°, nom de rue et code postal";
+$(".formGroup4").append(formAdressInput);
+
+/****Informations supplémentaires */
+
+let formGroup5 = document.createElement("div");
+formGroup5.className = "p-1 formGroup5";
+$(".formContainer").append(formGroup5);
+
+
+let formInfo = document.createElement("label");
+formInfo.className = "formInfo";
+formInfo.htmlFor = "Info";
+formInfo.innerHTML = "Informations supplémentaires :";
+$(".formGroup5").append(formInfo);
+
+let formInfoInput = document.createElement("textarea");
+formInfoInput.className = "form-control formInfoInput";
+formInfoInput.id= "formInfo";
+formInfoInput.rows = "3";
+formInfoInput.cols = "20";
+formInfoInput.placeholder = "Donnez nous toutes les informations nécessaires!";
+$(".formGroup5").append(formInfoInput);
+
+
+/******Bouton de commande */
+let orderButton = document.createElement("button");
+orderButton.className = "btn btn-primary btn-block p-3 mt-5 w-100 rounded orderButton";
+orderButton.type = "submit";
+orderButton.id = "orderButton";
+orderButton.href= "order.html";
+orderButton.innerHTML= "Finaliser ma commande";
+$("#cart_price").append(orderButton);
+
+/******************************Envoie du formulaire dans localStorage */
+
+/*******************Add event listener du boutton commande */
+const btnSendFrom = document.querySelector("#orderButton");
+btnSendFrom.addEventListener("click", (e)=>{
+    e.preventDefault();
+const formValues= {
+    name : document.getElementById("name").value,
+    surname : document.getElementById("surname").value,
+    email : document.getElementById("formEmail").value,
+    adress : document.getElementById("formAdress").value,
+    info : document.getElementById("formInfo").value,
+}
+/****Envoie dans localStorage */
+localStorage.setItem("formValues", JSON.stringify(formValues));
+
+const formToServer = {
+    productInLocalStorage,
+    formValues
+}
+
+
+});
+
+
+/***Laisser les valeurs du localStorage dans le formulaire */
+/**Récupérer la key : value  */
+const dataLocalStorage = localStorage.getItem("formValues");
+const dataLocalStorageJS = JSON.parse(dataLocalStorage);
+
+/**Mettre les values dans les champs */
+/*function fillFormInputFromLocalStorage(input) {
+ document.querySelector(`#${input}`).value = dataLocalStorageJS.input;
+};
+fillFormInputFromLocalStorage("prénom");*/
+document.querySelector("#name").value = dataLocalStorageJS.name;
+document.querySelector("#surname").value = dataLocalStorageJS.surname;
+document.querySelector("#formEmail").value = dataLocalStorageJS.email;
+document.querySelector("#formAdress").value = dataLocalStorageJS.adress;
+document.querySelector("#formInfo").value = dataLocalStorageJS.info;

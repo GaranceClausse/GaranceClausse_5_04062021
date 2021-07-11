@@ -1,4 +1,4 @@
-/* Mise en page de la page index */
+/****************************** Mise en page de la page index */
       
       for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
       
@@ -84,7 +84,7 @@
 
 
 
-/* Mise en page de page-item */
+/****************************************************************************Mise en page de page-item */
 
 
       /* Récupération de la chaine de requête dans l'url */
@@ -101,7 +101,7 @@
      console.log(productSelected);
 
 
-     /* Code HTML de la partie décrivant le produit sélectionné */
+     /********************************Code HTML de la partie décrivant le produit sélectionné */
       /* Création container */
      let container_item = document.createElement("div");
      container_item.className = "container container_page_item px-4 px-lg-5 my-5";
@@ -176,7 +176,7 @@
 
      $("#product_option").append(structureOption);*/
 
-      /* Bouton d'ajout au panier + choix nombre articles*/
+      /**********Bouton d'ajout au panier + choix nombre articles*/
      let product_add_to_cart_container = document.createElement("div");
      product_add_to_cart_container.className = "d-flex flex-row product_add_to_cart_container";
      $(".product_description").append(product_add_to_cart_container);
@@ -210,7 +210,7 @@
 
 
 
-/* Mise en page des produits supplémentaires */
+/*******************************************************Mise en page des produits supplémentaires */
 
      for ( let i=1; i < teddies.length; i++) for (teddy of teddies) {
       
@@ -294,7 +294,7 @@
 
       };
 
-      /* Retirer carte déjà affichée*/
+      /****************************************Retirer carte déjà affichée*/
 
       if (productSelected._id === "5beaacd41c9d440000a57d97") {
         $(document).ready(function(){
@@ -323,15 +323,15 @@
       };
       
 
- /* Add to cart : Ajout au panier */
+ /*************************************Add to cart : Ajout au panier */
 
   const btn_add_to_cart = document.querySelector(".product_add_to_cart");
   btn_add_to_cart.addEventListener("click", (event)=>{
     event.preventDefault();
 ;
-    // Local storage //
+    /** Local storage */
 
-  // Stocker les valeurs dans local storage + fenêtre popup de confirmation //
+  /*************************Stocker les valeurs dans local storage + fenêtre popup de confirmation */
 
   let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
   const popupConfirm = () =>{
@@ -358,3 +358,5 @@ Consulter le panier ou continuer mes achats?`)){
     popupConfirm();
   };
   });
+
+  
