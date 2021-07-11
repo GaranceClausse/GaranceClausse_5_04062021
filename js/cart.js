@@ -5,13 +5,13 @@
   
 
      /* si le panier est vide */
-     if(productInLocalStorage === null){
+     if(productInLocalStorage === null || productInLocalStorage == 0){
         $(document).ready(function(){
             $("div").remove("#cart_container");
             let emptyCart = document.createElement("h5");
             emptyCart.className = "p-4 emptyCart";
             emptyCart.innerHTML = "Le panier est vide!"
-            $("#big_cart_container").append(emptyCart);
+            $("#big_cart_container").prepend(emptyCart);
           })
 
     }else{
@@ -23,7 +23,13 @@
       container_cart.className = "container_cart mb-3";
       $("#cart_container").append(container_cart);
 
-      
+      /* Ajout du titre : nombre d'articles dans le panier */
+    let title_cart = document.createElement("h5");
+    title_cart.className = "mb-4 title_cart";
+    title_cart.innerHTML = "Votre panier : ";
+    $(".container_cart").append(title_cart);
+
+    /* Ajout des articles */
 
   for(k= 0; k<productInLocalStorage.length; k++) {
 
@@ -31,12 +37,7 @@
     sub_container_cart.className = "pt-4 wish-list sub_container_cart" + k;
     $(".container_cart").append(sub_container_cart);
 
-    /* Ajout du titre : nombre d'articles dans le panier */
-    let title_cart = document.createElement("h5");
-    title_cart.className = "mb-4 title_cart" + k;
-    title_cart.innerHTML = "Panier : ";
-    $(".sub_container_cart" + k).append(title_cart);
-
+    
       let container_cart_card = document.createElement("div");
       container_cart_card.className = "row mb-4 container_cart_card" + k;
       $(".sub_container_cart" + k).append(container_cart_card);
@@ -76,7 +77,7 @@
     $(".sub2_item_cart_card" + k).append(teddy_name_cart);
 
     let teddy_price_cart = document.createElement("div");
-    teddy_price_cart.className = "py-2 teddy_price_cart" + k;
+    teddy_price_cart.className = "py-2 teddy_price teddy_price_cart" + k;
     teddy_price_cart.innerHTML = "Prix : " + productInLocalStorage[k].price/100 + "€";
     $(".sub2_item_cart_card" + k).append(teddy_price_cart);
 
@@ -101,170 +102,97 @@
 
      /*Bouton supprimer l'article*/
      let remove_cart_btn = document.createElement("button");
-    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 delete_btn remove_cart_btn" + k;
+    remove_cart_btn.className = "card-link-secondary small text-uppercase mr-3 p-2 rounded delete_btn remove_cart_btn" + k;
     remove_cart_btn.type = "button";
     remove_cart_btn.href= "#!";
     remove_cart_btn.innerHTML= "Retirer cet ours";
     $(".remove_cart_container" + k).append(remove_cart_btn);
-/*
-    
-    remove_cart_btn[k].addEventListener ("onclick", (event)=>{
-        $("div").remove(".container_cart_card" + k);
-      });
-*/
+
     let remove_cart_icon = document.createElement("i");
      remove_cart_icon.className = "px-3 fas fa-trash-alt mr-1 remove_cart_icon" + k;
      $(".remove_cart_btn" + k).prepend(remove_cart_icon);
 
     let separationItem = document.createElement("hr");
     separationItem.className = "mb-4" + k;
-    $(".sub_container_cart" + k).prepend(separationItem);
+    $(".sub_container_cart" + k).append(separationItem);
+
+    
+
       }
+
     };
 
     
          
-   /* 
+/* Bouton supprimer l'article */
     let remove_btn = document.querySelectorAll(".delete_btn");
     for (let l=0; l < remove_btn.length; l++) {
     remove_btn[l].addEventListener("click", (event)=>{
-    
-    let id_delete = productInLocalStorage[l].id_productSelected;*/
+    let id_delete = productInLocalStorage[l]._id;
 
     /* Supprimer l'élément sélectionné*/
-   /* productInLocalStorage = productInLocalStorage.filter(el => el.id_productSelected == id_delete);
+   productInLocalStorage = productInLocalStorage.filter(el => el._id !== id_delete);
+   localStorage.setItem("product", JSON.stringify(productInLocalStorage));
+   alert("Votre produit a bien été supprimé");
+   window.location.href = "cart.html";
+    })
+    };
+
+    /****************************************************** Bouton tout supprimer : delete all */
+    /* Injection HTML*/
+    let remove_all_btn = document.createElement("button");
+    remove_all_btn.className = "card-link-secondary small text-uppercase w-100 mr-3 p-3 rounded delete_all_btn remove_all_btn";
+    remove_all_btn.type = "button";
+    remove_all_btn.href= "#!";
+    remove_all_btn.innerHTML= "Vider le panier";
+    $("#cart_container").append(remove_all_btn);
+
+    /*Supprimer la key produit du LocalStorage*/
+    let delete_all_btn = document.querySelector(".delete_all_btn");
+    delete_all_btn.addEventListener("click", (e)=> {
+    localStorage.removeItem("product");
+    alert("Votre panier a bien été vidé!");
+    window.location.href = "cart.html";
     });
-    }
+
+/* Insertion du prix total */
+/*let cart_price_list = document.createElement("ul");
+cart_price_list.className = "list-group list-group-flush cart_price_list";
+$("#cart_price").append(cart_price_list);
+
+let total_price = document.querySelectorAll(".teddy_price");
+
+    let cart_price_list_total = document.createElement("li");
+cart_price_list_total.className = "list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 cart_price_list_total";
+cart_price_list_total.innerHTML = "Prix de vos produits" + total_price;
+$(".cart_price_list").append(cart_price_list_total);*/
 
 
 
-
-
-
-
-
-/*<div class="container px-4 px-lg-5 my-5" id="cart_container">
-                    <!-- Card -->
-                    <div class="mb-3">
-                        <div class="pt-4 wish-list">
-
-                            <h5 class="mb-4">Panier (<span>2</span> produits)</h5>
-
-                            <div class="row mb-4">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                                        <img class="img-fluid w-100" src="images/teddy_Arnold.webp" alt="Sample">
-                                    </div>
+/* <<ul class="list-group list-group-flush">
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Prix de vos produits
+                                <span>75 €</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Livraison
+                                <span>Gratuite</span>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Prix total</strong>
+                                    <strong>
+                                        <p class="mb-0">(dont TVA)</p>
+                                    </strong>
                                 </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5>Votre ours :
-                                                    <span class="display-5 fw-bolder teddy_name"></span>
-                                                </h5>
-                                                <p class="mb-2 text-muted text-uppercase small">Couleur: </p>
-                                            </div>
-                                            <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <input class="quantity" min="0" name="quantity" value="1"
-                                                        type="number">
-                                                </div>
-                                                <small id="passwordHelpBlock" class="form-text text-muted text-center">
-                                                    (Note, 1 piece)
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" type="button"
-                                                    class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Retirer cet ours </a>
+                                <span><strong>75 €</strong></span>
+                            </li>
+                        </ul>
+                        <a href="order.html">
+                            <button type="button" class="btn btn-primary btn-block">Finaliser ma commande</button>
+                        </a>
 
-                                            </div>
-                                            <p class="mb-0"><span><strong id="summary"><span
-                                                            class="teddy_price"></span></strong></span></p class="mb-0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="mb-4">
-                            <div class="row mb-4">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                                        <img class="img-fluid w-100" src="images/teddy_Garfunkel.webp" alt="Sample">
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5>Votre ours :
-                                                    <span class="display-5 fw-bolder teddy_name"></span>
-                                                </h5>
-                                                <p class="mb-2 text-muted text-uppercase small">Couleur: </p>
-                                            </div>
-                                            <div>
-                                                <div class="def-number-input number-input safari_only mb-0 w-100">
-                                                    <input class="quantity" min="0" name="quantity" value="1"
-                                                        type="number">
-                                                </div>
-                                                <small id="passwordHelpBlock" class="form-text text-muted text-center">
-                                                    (Note, 1 piece)
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" type="button"
-                                                    class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Retirer cet ours </a>
+                        */
 
-                                            </div>
-                                            <p class="mb-0"><span><strong id="summary"><span
-                                                            class="teddy_price"></span></strong></span></p class="mb-0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mb-0"><i class="fas fa-info-circle mr-1"></i> N'attendez pas pour
-                                acheter les ours les plus mignons de France!</p>
-
-                        </div>
-                    </div>
-                    <!-- Card -->
-
-                    <!-- Card -->
-                    <div class="mb-3">
-                        <div class="pt-4">
-
-                            <h5 class="mb-4">Date de livraison attendue : </h5>
-
-                            <p class="mb-0"> Lundi 12 juillet</p>
-                        </div>
-
-                        <!-- Card -->
-                    </div>
-
-                    <!-- Card -->
-                    <div class="mb-3">
-                        <div class="pt-4">
-
-                            <h5 class="mb-4">Vous pouvez payer avec :</h5>
-
-                            <img class="mr-2" width="45px"
-                                src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                                alt="Visa">
-                            <img class="mr-2" width="45px"
-                                src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                                alt="American Express">
-                            <img class="mr-2" width="45px"
-                                src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                                alt="Mastercard">
-                            <img class="mr-2" width="45px"
-                                src="https://mdbootstrap.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
-                                alt="PayPal acceptance mark">
-                        </div>
-                    </div>
-                    <!-- Card -->
-                </div>*/
