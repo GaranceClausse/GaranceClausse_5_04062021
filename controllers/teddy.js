@@ -1,4 +1,4 @@
-const uuid = require('uuid/v1');
+const uuid = require('../node_modules/uuid/v1');
 const Teddy = require('../models/Teddy');
 
 exports.getAllTeddies = (req, res, next) => {
