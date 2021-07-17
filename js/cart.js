@@ -54,7 +54,7 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
             let img_cart_card = document.createElement("img");
             /* Set image class +alt */
             img_cart_card.className = "card-img-top img-fluid cover h-100 w-100";
-            img_cart_card.src = "images/" + productInLocalStorage[k].imageUrl;
+            img_cart_card.src = productInLocalStorage[k].imageUrl;
             /* Add image*/
             $(".img_container_cart_card" + k).append(img_cart_card);
         }
@@ -352,8 +352,8 @@ const btnSendFrom = document.querySelector("#orderButton");
 btnSendFrom.addEventListener("click", (e) => {
     e.preventDefault();
     const contact = {
-        lastName: document.getElementById("name").value,
         firstName: document.getElementById("surname").value,
+        lastName: document.getElementById("name").value,
         adress: document.getElementById("formAdress").value,
         city: document.getElementById("formCity").value,
         email: document.getElementById("formEmail").value,
@@ -437,18 +437,16 @@ btnSendFrom.addEventListener("click", (e) => {
     };
 
 /**********************************Envoie vers le serveur */
-let product_id = null;
+let products = [];
 for (let n = 0; n < productInLocalStorage.length; n++) {
-  product_id = productInLocalStorage[n]._id;
+  products.push(productInLocalStorage[n]._id);
 };
-
 
     const formToServer = {
         contact,
-        product_id
+        products
         
     };
-    console.log(formToServer);
 const promise01 = fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     body : JSON.stringify(formToServer),
@@ -456,6 +454,7 @@ const promise01 = fetch("http://localhost:3000/api/teddies/order", {
         "Content-Type": "application/json",
     },
 });
+console.log(formToServer);
 
 });
 
