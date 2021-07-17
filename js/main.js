@@ -1,81 +1,81 @@
 /****************************** Mise en page de la page index */
-let displayProduct = teddies =>{
+let displayProduct = teddies => {
 
-for (let i = 1; i < teddies.length; i++) {
-  for (teddy of teddies) {
-
-
-    let container1 = document.createElement("div");
-    container1.className = "col-10 mb-5";
-    container1.id = "container" + i;
-    $("#teddy_container").append(container1);
+  for (let i = 1; i < teddies.length; i++) {
+    for (teddy of teddies) {
 
 
-    /* Create div */
-    let card = document.createElement("div");
-    card.className = "card d-flex h-100 justify-content-stretch shadow";
-    card.id = "card" + i;
-    $("#container" + i).append(card);
-
-    /*create img container*/
-    let img_cont = document.createElement("div");
-    img_cont.className = "w-100 d-flex justify-content-center img_cont" + i;
-    $("#card" + i).append(img_cont);
-
-    /* Create image */
-    let img = document.createElement("img");
-    /* Set image class +alt */
-    img.className = "card-img-top img-fluid cover h-100 w-100";
-    img.src = teddy.imageUrl;
-    img.alt = teddy.alt;
-    /* Add image*/
-    $(".img_cont" + i).prepend(img);
-
-    /* Create card_body */
-
-    let card_body = document.createElement("div");
-    card_body.className = "p-4 h-100  d-flex flex-column card-body" + i;
-    $("#card" + i).append(card_body);
-
-    /* Create text-center */
-
-    let text_center = document.createElement("div");
-    text_center.className = "text-center h-100 d-flex flex-column title" + i;
-    $(".card-body" + i).append(text_center);
-
-    /* Create Teddy's name */
-    let teddy_name = document.createElement("h5");
-    teddy_name.className = "fw-bolder mb-auto teddy_name" + i;
-    teddy_name.innerHTML = "L'ours " + teddy.name;
-    $(".title" + i).append(teddy_name);
+      let container1 = document.createElement("div");
+      container1.className = "col-10 mb-5";
+      container1.id = "container" + i;
+      $("#teddy_container").append(container1);
 
 
-    /*Add price*/
-    let teddy_price = document.createElement("div");
-    teddy_price.className = "fw-bolder mb-0 teddy_price" + i;
-    teddy_price.innerHTML = teddy.price / 100 + " €";
-    $(".title" + i).append(teddy_price);
+      /* Create div */
+      let card = document.createElement("div");
+      card.className = "card d-flex h-100 justify-content-stretch shadow";
+      card.id = "card" + i;
+      $("#container" + i).append(card);
 
-    /*Add footer card */
+      /*create img container*/
+      let img_cont = document.createElement("div");
+      img_cont.className = "w-100 d-flex justify-content-center img_cont" + i;
+      $("#card" + i).append(img_cont);
 
-    let card_footer = document.createElement("div");
-    card_footer.className = "d-flex flex-row p-2 pb-3 border-bottom-1 mb-0 mt-auto bg-transparent align-self-center card-footer" + i;
-    $("#card" + i).append(card_footer);
+      /* Create image */
+      let img = document.createElement("img");
+      /* Set image class +alt */
+      img.className = "card-img-top img-fluid cover h-100 w-100";
+      img.src = teddy.imageUrl;
+      img.alt = teddy.alt;
+      /* Add image*/
+      $(".img_cont" + i).prepend(img);
 
-    /* Add link */
-    let card_link = document.createElement("a");
-    card_link.className = "btn btn-outline-dark mt-auto stretched-link card-link" + i;
-    card_link.id = teddy._id;
-    card_link.href = "page-item.html?id=" + teddy._id;
-    card_link.innerHTML = "Voir plus";
-    $(".card-footer" + i).append(card_link);
+      /* Create card_body */
+
+      let card_body = document.createElement("div");
+      card_body.className = "p-4 h-100  d-flex flex-column card-body" + i;
+      $("#card" + i).append(card_body);
+
+      /* Create text-center */
+
+      let text_center = document.createElement("div");
+      text_center.className = "text-center h-100 d-flex flex-column title" + i;
+      $(".card-body" + i).append(text_center);
+
+      /* Create Teddy's name */
+      let teddy_name = document.createElement("h5");
+      teddy_name.className = "fw-bolder mb-auto teddy_name" + i;
+      teddy_name.innerHTML = "L'ours " + teddy.name;
+      $(".title" + i).append(teddy_name);
 
 
-    i++;
+      /*Add price*/
+      let teddy_price = document.createElement("div");
+      teddy_price.className = "fw-bolder mb-0 teddy_price" + i;
+      teddy_price.innerHTML = teddy.price / 100 + " €";
+      $(".title" + i).append(teddy_price);
+
+      /*Add footer card */
+
+      let card_footer = document.createElement("div");
+      card_footer.className = "d-flex flex-row p-2 pb-3 border-bottom-1 mb-0 mt-auto bg-transparent align-self-center card-footer" + i;
+      $("#card" + i).append(card_footer);
+
+      /* Add link */
+      let card_link = document.createElement("a");
+      card_link.className = "btn btn-outline-dark mt-auto stretched-link card-link" + i;
+      card_link.id = teddy._id;
+      card_link.href = "page-item.html?id=" + teddy._id;
+      card_link.innerHTML = "Voir plus";
+      $(".card-footer" + i).append(card_link);
+
+
+      i++;
+
+    };
 
   };
-
-};
 };
 /****************************** */
 
@@ -88,7 +88,7 @@ let productAPI = fetch(`http://localhost:3000/api/teddies`, {
   body: undefined,
 },
 ).then(response => response.json()).then(teddies => {
-  console.log(teddies); displayProduct(teddies);
+  displayProduct(teddies);
 }).catch(console.error);
 
 /****************************************************************************Mise en page de page-item */
@@ -105,9 +105,7 @@ const real_id = queryString_url_id.slice(4);
 /*extraction id */
 const urlSearchParams = new URLSearchParams(queryString_url_id);
 const id = urlSearchParams.get("id");
-console.log(id);
 let displayProductItem = productSelected => {
-  console.log(productSelected);
 
 
   /********************************Code HTML de la partie décrivant le produit sélectionné */
@@ -214,120 +212,137 @@ let displayProductItem = productSelected => {
   cart_link.innerHTML = "Ajouter au panier";
   $(".product_add_to_cart").append(cart_link);
 
-  
+
 
 
   /*******************************************************Mise en page des produits supplémentaires */
+  let displayProductPlus = teddies => {
 
-  for (let i = 1; i < teddies.length; i++) for (teddy of teddies) {
-
-
-    let item_container1 = document.createElement("div");
-    item_container1.className = " col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5";
-    item_container1.id = "item_container" + i;
-    $("#other_item_container").append(item_container1);
+    for (let i = 1; i < teddies.length; i++) {
+      for (teddy of teddies) {
 
 
-    /* Create div */
-    let item_card = document.createElement("div");
-    item_card.className = "card d-flex h-100 justify-content-stretch shadow";
-    item_card.id = "item_card" + i;
-    $("#item_container" + i).append(item_card);
-
-    /*create img container*/
-    let item_img_cont = document.createElement("div");
-    item_img_cont.className = "w-100 d-flex justify-content-center item_img_cont" + i;
-    $("#item_card" + i).append(item_img_cont);
-
-    /* Create image */
-    let item_img = document.createElement("img");
-    /* Set image class +alt */
-    item_img.className = "card-img-top img-fluid cover h-100 w-100";
-    item_img.src = "images/" + teddy.imageUrl;
-    item_img.alt = teddy.alt;
-    /* Add image*/
-    $(".item_img_cont" + i).prepend(item_img);
-
-    /* Create card_body */
-
-    let item_card_body = document.createElement("div");
-    item_card_body.className = "p-4 h-100  d-flex flex-column item_card-body" + i;
-    $("#item_card" + i).append(item_card_body);
-
-    /* Create text-center */
-
-    let item_text_center = document.createElement("div");
-    item_text_center.className = "text-center h-100 d-flex flex-column item_title" + i;
-    $(".item_card-body" + i).append(item_text_center);
-
-    /* Create Teddy's name */
-    let item_teddy_name = document.createElement("h5");
-    item_teddy_name.className = "fw-bolder mb-auto item_teddy_name" + i;
-    item_teddy_name.innerHTML = "L'ours " + teddy.name;
-    $(".item_title" + i).append(item_teddy_name);
-
-    /* Create reviews */
-    let item_reviews = document.createElement("div");
-    item_reviews.className = "d-flex justify-content-center justify-self-end p-3 mb-0 small text-warning item_reviews" + i;
-    $(".item_title" + i).append(item_reviews);
-
-    /*Add stars*/
-    let item_stars = document.createElement("div");
-    item_stars.className = "bi-star-fill";
-    $(".item_reviews" + i).append(item_stars * 5);
-
-    /*Add price*/
-    let item_teddy_price = document.createElement("div");
-    item_teddy_price.className = "fw-bolder mb-0 item_teddy_price" + i;
-    item_teddy_price.innerHTML = teddy.price / 100 + " €";
-    $(".item_title" + i).append(item_teddy_price);
-
-    /*Add footer card */
-
-    let item_card_footer = document.createElement("div");
-    item_card_footer.className = "d-flex flex-row p-2 pb-3 border-bottom-1 mb-0 mt-auto bg-transparent align-self-center item_card-footer" + i;
-    $("#item_card" + i).append(item_card_footer);
-
-    /* Add link */
-    let item_card_link = document.createElement("a");
-    item_card_link.className = "btn btn-outline-dark mt-auto stretched-link item_card-link" + i;
-    item_card_link.id = teddy._id;
-    item_card_link.href = "page-item.html?" + teddy._id;
-    item_card_link.innerHTML = "Voir plus";
-    $(".item_card-footer" + i).append(item_card_link);
+        let item_container1 = document.createElement("div");
+        item_container1.className = " col-10 col-sm-8 col-md-3 col-lg-2 col-xl-2 mb-5";
+        item_container1.id = "item_container" + i;
+        $("#other_item_container").append(item_container1);
 
 
-    i++;
+        /* Create div */
+        let item_card = document.createElement("div");
+        item_card.className = "card d-flex h-100 justify-content-stretch shadow";
+        item_card.id = "item_card" + i;
+        $("#item_container" + i).append(item_card);
 
+        /*create img container*/
+        let item_img_cont = document.createElement("div");
+        item_img_cont.className = "w-100 d-flex justify-content-center item_img_cont" + i;
+        $("#item_card" + i).append(item_img_cont);
+
+        /* Create image */
+        let item_img = document.createElement("img");
+        /* Set image class +alt */
+        item_img.className = "card-img-top img-fluid cover h-100 w-100";
+        item_img.src = teddy.imageUrl;
+        item_img.alt = teddy.alt;
+        /* Add image*/
+        $(".item_img_cont" + i).prepend(item_img);
+
+        /* Create card_body */
+
+        let item_card_body = document.createElement("div");
+        item_card_body.className = "p-4 h-100  d-flex flex-column item_card-body" + i;
+        $("#item_card" + i).append(item_card_body);
+
+        /* Create text-center */
+
+        let item_text_center = document.createElement("div");
+        item_text_center.className = "text-center h-100 d-flex flex-column item_title" + i;
+        $(".item_card-body" + i).append(item_text_center);
+
+        /* Create Teddy's name */
+        let item_teddy_name = document.createElement("h5");
+        item_teddy_name.className = "fw-bolder mb-auto item_teddy_name" + i;
+        item_teddy_name.innerHTML = "L'ours " + teddy.name;
+        $(".item_title" + i).append(item_teddy_name);
+
+        /* Create reviews */
+        let item_reviews = document.createElement("div");
+        item_reviews.className = "d-flex justify-content-center justify-self-end p-3 mb-0 small text-warning item_reviews" + i;
+        $(".item_title" + i).append(item_reviews);
+
+        /*Add stars*/
+        let item_stars = document.createElement("div");
+        item_stars.className = "bi-star-fill";
+        $(".item_reviews" + i).append(item_stars * 5);
+
+        /*Add price*/
+        let item_teddy_price = document.createElement("div");
+        item_teddy_price.className = "fw-bolder mb-0 item_teddy_price" + i;
+        item_teddy_price.innerHTML = teddy.price / 100 + " €";
+        $(".item_title" + i).append(item_teddy_price);
+
+        /*Add footer card */
+
+        let item_card_footer = document.createElement("div");
+        item_card_footer.className = "d-flex flex-row p-2 pb-3 border-bottom-1 mb-0 mt-auto bg-transparent align-self-center item_card-footer" + i;
+        $("#item_card" + i).append(item_card_footer);
+
+        /* Add link */
+        let item_card_link = document.createElement("a");
+        item_card_link.className = "btn btn-outline-dark mt-auto stretched-link item_card-link" + i;
+        item_card_link.id = teddy._id;
+        item_card_link.href = "page-item.html?id=" + teddy._id;
+        item_card_link.innerHTML = "Voir plus";
+        $(".item_card-footer" + i).append(item_card_link);
+
+
+        i++;
+      };
+    };
+    /****************************************Retirer carte déjà affichée*/
+
+    if (productSelected._id === "5beaacd41c9d440000a57d97") {
+      $(document).ready(function () {
+        $("div").remove("#item_container5");
+      })
+    };
+    if (productSelected._id === "5be9c8541c9d440000665243") {
+      $(document).ready(function () {
+        $("div").remove("#item_container1");
+      })
+    };
+    if (productSelected._id === "5beaa8bf1c9d440000a57d94") {
+      $(document).ready(function () {
+        $("div").remove("#item_container2");
+      })
+    };
+    if (productSelected._id === "5beaaa8f1c9d440000a57d95") {
+      $(document).ready(function () {
+        $("div").remove("#item_container3");
+      })
+    };
+    if (productSelected._id === "5beaabe91c9d440000a57d96") {
+      $(document).ready(function () {
+        $("div").remove("#item_container4");
+      })
+    };
   };
 
-  /****************************************Retirer carte déjà affichée*/
 
-  if (productSelected._id === "5beaacd41c9d440000a57d97") {
-    $(document).ready(function () {
-      $("div").remove("#item_container5");
-    })
-  };
-  if (productSelected._id === "5be9c8541c9d440000665243") {
-    $(document).ready(function () {
-      $("div").remove("#item_container1");
-    })
-  };
-  if (productSelected._id === "5beaa8bf1c9d440000a57d94") {
-    $(document).ready(function () {
-      $("div").remove("#item_container2");
-    })
-  };
-  if (productSelected._id === "5beaaa8f1c9d440000a57d95") {
-    $(document).ready(function () {
-      $("div").remove("#item_container3");
-    })
-  };
-  if (productSelected._id === "5beaabe91c9d440000a57d96") {
-    $(document).ready(function () {
-      $("div").remove("#item_container4");
-    })
-  };
+  let productAPIPlus = fetch(`http://localhost:3000/api/teddies`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: undefined,
+  },
+  ).then(response => response.json()).then(teddies => {
+    displayProductPlus(teddies);
+  }).catch(console.error);
+
+
 
 
   /*************************************Add to cart : Ajout au panier */
@@ -341,37 +356,34 @@ let displayProductItem = productSelected => {
     /*************************Stocker les valeurs dans local storage + fenêtre popup de confirmation */
 
     let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
-    const popupConfirm = () => {
+    console.log(productInLocalStorage);
+    /*const popupConfirm = () => {
       if (window.confirm(`Votre ours : ${productSelected.name} à ${productSelected.price / 100} € a bien été ajouté au panier!
   Consulter le panier ou continuer mes achats?`)) {
         window.location.href = "cart.html";
       } else {
         window.location.href = "index.html";
       }
-    };
+    };*/
 
     //voir s'il y a produit dans le panier//
-    if (productInLocalStorage) {
-      productInLocalStorage.push(productSelected);
-      localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-      console.log(productInLocalStorage);
-      popupConfirm();
-    }
-    else {
-      productInLocalStorage = [];
-      productInLocalStorage.push(productSelected);
-      localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-      console.log(productInLocalStorage);
-      popupConfirm();
+    for (let v = 0; v < productInLocalStorage.length; v++) {
+      if(productInLocalStorage[v]._id == productSelected._id) {
+        alert("Ce produit a déjà été ajouté!");
+        return false
+      } else if (productInLocalStorage[v]._id != productSelected._id) {
+        productInLocalStorage.push(productSelected);
+        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+        popupConfirm();
+      }
+      else {
+        productInLocalStorage = [];
+        productInLocalStorage.push(productSelected);
+        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+        popupConfirm();
+      };
     };
   });
-
-  for (let y = 0; y < productInLocalStorage.length; y++) {
-    if (productInLocalStorage[y]._id == productSelected.id) {
-      localStorage.removeItem(productSelected)
-    };
-  }; console.log(productSelected.id);
-
 };
 
 /*affichage du produit sélectionné par l'id*/
@@ -384,12 +396,7 @@ let productItemAPI = fetch(`http://localhost:3000/api/teddies/${id}`, {
   body: undefined,
 },
 ).then(response => response.json()).then(productSelected => {
-  console.log(productSelected); displayProductItem(productSelected);
-}).catch(console.error);
-
-
-console.log(productAPI);
-/*const productSelected = teddies.find((element) => element._id === realId);
-console.log(productSelected);*/
-
+  displayProductItem(productSelected);
+})
+  .catch(console.error);
 

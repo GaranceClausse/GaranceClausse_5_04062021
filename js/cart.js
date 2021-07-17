@@ -227,7 +227,7 @@ $("#cart_price").append(formContainer);
 
 let formTitle = document.createElement("h4");
 formTitle.className = "formTitle";
-formTitle.innerHTML = "cityrmations de livraison";
+formTitle.innerHTML = "Informations de livraison";
 $(".formContainer").append(formTitle);
 
 let formField = document.createElement("form");
@@ -354,7 +354,7 @@ btnSendFrom.addEventListener("click", (e) => {
     const contact = {
         firstName: document.getElementById("surname").value,
         lastName: document.getElementById("name").value,
-        adress: document.getElementById("formAdress").value,
+        address: document.getElementById("formAdress").value,
         city: document.getElementById("formCity").value,
         email: document.getElementById("formEmail").value,
     };
@@ -416,7 +416,7 @@ btnSendFrom.addEventListener("click", (e) => {
     };
 
     function adressControl(){
-        const adressCheck = contact.adress;
+        const adressCheck = contact.address;
         if(regExAdress(adressCheck)){
             return true;
         }else{
@@ -444,8 +444,7 @@ for (let n = 0; n < productInLocalStorage.length; n++) {
 
     const formToServer = {
         contact,
-        products
-        
+        products,
     };
 const promise01 = fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
@@ -454,7 +453,43 @@ const promise01 = fetch("http://localhost:3000/api/teddies/order", {
         "Content-Type": "application/json",
     },
 });
+
 console.log(formToServer);
+
+promise01.then(async(response)=>{
+    try{
+        const content = await response.json();
+        console.log(content.orderId);
+        if(response.ok){
+ console.log(`OrderId = ${content.orderId}`)
+ /*****************Récupération de l'orderId */
+ localStorage.setItem("orderId", content.orderId);
+        }else{
+console.log(`Réponse du serveur : ${reponse.status}`);
+alert(`Problème avec le serveur : erreur ${reponse.status}`)
+        };
+
+    }catch(e){
+        console.log(e);
+    }
+});
+
+
+
+
+/*****************************************Confirmer la commande */
+
+    /*************************Fenêtre popup de confirmation */
+
+   const popupConfirmOrder = () => {
+      if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
+        window.location.href = "order.html";
+      } else {
+        window.location.href = "index.html";
+      }
+    };
+
+    popupConfirmOrder();
 
 });
 
@@ -472,6 +507,8 @@ fillFormInputFromLocalStorage("prénom");*/
 document.querySelector("#name").value = dataLocalStorageJS.lastName;
 document.querySelector("#surname").value = dataLocalStorageJS.firstName;
 document.querySelector("#formEmail").value = dataLocalStorageJS.email;
-document.querySelector("#formAdress").value = dataLocalStorageJS.adress;
+document.querySelector("#formAdress").value = dataLocalStorageJS.address;
 document.querySelector("#formCity").value = dataLocalStorageJS.city;
-/***************************************** */
+
+
+
