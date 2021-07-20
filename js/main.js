@@ -357,33 +357,40 @@ let displayProductItem = productSelected => {
 
     let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
     console.log(productInLocalStorage);
-    /*const popupConfirm = () => {
+    const popupConfirm = () => {
       if (window.confirm(`Votre ours : ${productSelected.name} à ${productSelected.price / 100} € a bien été ajouté au panier!
   Consulter le panier ou continuer mes achats?`)) {
         window.location.href = "cart.html";
       } else {
         window.location.href = "index.html";
       }
-    };*/
+    };
 
+    productSelected.quantity = 0;
     //voir s'il y a produit dans le panier//
-    for (let v = 0; v < productInLocalStorage.length; v++) {
-      if(productInLocalStorage[v]._id == productSelected._id) {
-        alert("Ce produit a déjà été ajouté!");
-        return false
-      } else if (productInLocalStorage[v]._id != productSelected._id) {
-        productInLocalStorage.push(productSelected);
-        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-        popupConfirm();
-      }
-      else {
-        productInLocalStorage = [];
-        productInLocalStorage.push(productSelected);
-        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-        popupConfirm();
+    if (productInLocalStorage === null) {
+      productInLocalStorage = [];
+      console.log("if");
+      productSelected.quantity+= 1;
+      productInLocalStorage.push(productSelected);
+      localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+      popupConfirm();
+    }else{
+      for (let v = 0; v < productInLocalStorage.length; v++) {
+        if (productInLocalStorage[v]._id === productSelected._id) {
+          console.log(productInLocalStorage[v].quantity);
+         let nb = localStorage.getItem(productInLocalStorage[v].quantity);
+         nb++;
+        } else if (productInLocalStorage[v]._id !== productSelected._id) {
+          productInLocalStorage.push(productSelected);
+          localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+          popupConfirm();
+        }       
+        ;
       };
     };
   });
+
 };
 
 /*affichage du produit sélectionné par l'id*/
