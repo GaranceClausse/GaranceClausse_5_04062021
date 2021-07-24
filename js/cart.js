@@ -92,8 +92,16 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
         product_quantity_cart.type = "number";
         product_quantity_cart.min = "0";
-        product_quantity_cart.value = productInLocalStorage[k].quantity;
+        product_quantity_cart.value = (1, productInLocalStorage[k].quantity);
+        product_quantity_cart.oninput =  
         $(".teddy_quantity_cart" + k).append(product_quantity_cart);
+
+
+        /***************Prise en compte de la quantité dans le localStorage */ 
+        let productQuantityListener = document.getElementsByClassName("quantity");
+        console.log(productQuantityListener); 
+        productInLocalStorage.quantity = document.getElementById("product_quantity_cart".value);
+        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
 
         let remove_cart = document.createElement("div");
         remove_cart.className = "d-flex justify-content-between align-items-center remove_cart" + k;
@@ -167,7 +175,6 @@ delete_all_btn.addEventListener("click", (e) => {
 /************************************Gestion du prix total */
 /***************************Prise en compte quantité choisie */
 const quantityChoice = document.querySelector(".product_quantity_cart0").value;
-console.log(quantityChoice);
 
 /* *****************************Insertion du prix total */
 /***Mettre les valeurs dans une array */

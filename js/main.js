@@ -389,24 +389,21 @@ let displayProductItem = productSelected => {
       localStorage.setItem("products", JSON.stringify(productInLocalStorage));
       popupConfirm();
     } else {
-        if (productInLocalStorage.every(e => e._id !== productSelected._id)) {
-          console.log("if");
-          productSelected.quantity += 1;
-          productInLocalStorage.push(productSelected);
-          localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-          popupConfirm();
-        } else {
-          console.log("esleif");
-          console.log(productSelected.quantity);
-
-          const searchInLocalStorage = productInLocalStorage.find(e => e._id === productSelected._id);
-         console.log(searchInLocalStorage);
-         productInLocalStorage.quantity = searchInLocalStorage.quantity +=1;
-          localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-          popupAlreadyConfirm();
-        };
+      if (productInLocalStorage.every(e => e._id !== productSelected._id)) {
+        console.log("if");
+        productSelected.quantity += 1;
+        productInLocalStorage.push(productSelected);
+        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+        popupConfirm();
+      } else {
+        const searchInLocalStorage = productInLocalStorage.find(e => e._id === productSelected._id);
+        console.log(searchInLocalStorage);
+        productInLocalStorage.quantity = searchInLocalStorage.quantity += 1;
+        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+        popupAlreadyConfirm();
       };
-    
+    };
+
     //voir s'il y a produit dans le panier//
     /*if (productInLocalStorage === null || productInLocalStorage[v]._id === productSelected._id) {
       productInLocalStorage = [];
@@ -421,15 +418,14 @@ let displayProductItem = productSelected => {
       popupConfirm();
     };*/
 
+    /******************Bouton rond panier */
+    let cartBtnPill = document.querySelectorAll("cartBtn");
+    cartBtnPill = document.createElement("span");
+    cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
+    cartBtnPill.innerHTML = productInLocalStorage.length;
+    $(".cartBtn").append(cartBtnPill);
 
   });
-  /******************Bouton rond panier */
-  let cartBtnPill = document.querySelectorAll("cartBtn");
-  cartBtnPill = document.createElement("span");
-  cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
-  cartBtnPill.innerHTML = productInLocalStorage.length;
-  $(".cartBtn").append(cartBtnPill);
-
 };
 
 /*affichage du produit sélectionné par l'id*/
