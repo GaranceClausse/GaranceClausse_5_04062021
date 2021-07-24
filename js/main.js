@@ -398,9 +398,10 @@ let displayProductItem = productSelected => {
         } else {
           console.log("esleif");
           console.log(productSelected.quantity);
-          productSelected.quantity += 3;          
-          console.log(productSelected.quantity);   
-          productInLocalStorage.push(productSelected);
+
+          const searchInLocalStorage = productInLocalStorage.find(e => e._id === productSelected._id);
+         console.log(searchInLocalStorage);
+         productInLocalStorage.quantity = searchInLocalStorage.quantity +=1;
           localStorage.setItem("products", JSON.stringify(productInLocalStorage));
           popupAlreadyConfirm();
         };
