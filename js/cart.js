@@ -26,7 +26,7 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
     /* Ajout du titre : nombre d'articles dans le panier */
     let title_cart = document.createElement("h5");
     title_cart.className = "mb-4 title_cart";
-    title_cart.innerHTML = "Votre panier : " + productInLocalStorage.length + " produit(s)";
+    title_cart.innerHTML = "Votre panier : " + productInLocalStorage.length + " ours";
     $(".container_cart").append(title_cart);
 
     /* Ajout des articles */
@@ -79,7 +79,7 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
 
         let teddy_price_cart = document.createElement("div");
         teddy_price_cart.className = "py-2 teddy_price teddy_price_cart" + k;
-        teddy_price_cart.innerHTML = "Prix : " + productInLocalStorage[k].price / 100 + "€";
+        teddy_price_cart.innerHTML = "Prix : " + productInLocalStorage[k].price * productInLocalStorage[k].quantity / 100 + "€";
         $(".sub2_item_cart_card" + k).append(teddy_price_cart);
 
         /************Quantité produit */
@@ -92,7 +92,7 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
         product_quantity_cart.type = "number";
         product_quantity_cart.min = "0";
-        product_quantity_cart.value = "1";
+        product_quantity_cart.value = productInLocalStorage[k].quantity;
         $(".teddy_quantity_cart" + k).append(product_quantity_cart);
 
         let remove_cart = document.createElement("div");
@@ -173,7 +173,7 @@ console.log(quantityChoice);
 /***Mettre les valeurs dans une array */
 let total_price_calcul = [];
 for (let m = 0; m < productInLocalStorage.length; m++) {
-    total_price_calcul.push(productInLocalStorage[m].price);
+    total_price_calcul.push(productInLocalStorage[m].price * productInLocalStorage[m].quantity);
 }
 /*******Addition des valeurs de la liste */
 const reducer = (acc, cur) => acc + cur;
@@ -361,8 +361,8 @@ btnSendFrom.addEventListener("click", (e) => {
 
     /************************************Vérification des données du formulaire */
     /*************Vérification nom et prénom */
-    const regExNoNumber = (value) =>{
-       return /^[A-Za-z]{2,20}$/.test(value);
+    const regExNoNumber = (value) => {
+        return /^[A-Za-z]{2,20}$/.test(value);
     };
 
     function nameControl() {
@@ -377,7 +377,7 @@ btnSendFrom.addEventListener("click", (e) => {
 
     function surnameControl() {
         const surnameCheck = contact.surname;
-        if (regExNoNumber(surnameCheck)){
+        if (regExNoNumber(surnameCheck)) {
             return true;
         } else {
             alert("Le Prénom doit être constitué de 2 à 20 lettres \n Ne pas utiliser de caractères spéciaux")
@@ -400,26 +400,26 @@ btnSendFrom.addEventListener("click", (e) => {
         return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value);
     };
 
-    function emailControl(){
+    function emailControl() {
         const emailCheck = contact.email;
-        if (regExEmail(emailCheck)){
+        if (regExEmail(emailCheck)) {
             return true;
-        }else{
+        } else {
             alert("L'email n'est pas valide")
             return false
         };
     };
 
     /************Vérification adresse */
-    const regExAdress = (value) =>{
+    const regExAdress = (value) => {
         return /^([0-9]*) ?([a-zA-Z,\. ]*) ?([0-9]{5}) ?([a-zA-Z]*)/.test(value);
     };
 
-    function adressControl(){
+    function adressControl() {
         const adressCheck = contact.address;
-        if(regExAdress(adressCheck)){
+        if (regExAdress(adressCheck)) {
             return true;
-        }else{
+        } else {
             alert("L'adresse n'est pas valide. Veuillez indiquer le numéro le nom de rue et le code postal.")
             return false
         };
@@ -432,64 +432,68 @@ btnSendFrom.addEventListener("click", (e) => {
         /****Envoie dans localStorage */
         localStorage.setItem("contact", JSON.stringify(contact));
 
-    }else{
-        alert("Le formulaire n'est pas correctement rempli")
+        /*****************************************Confirmer la commande */
+
+        /*************************Fenêtre popup de confirmation */
+
+        const popupConfirmOrder = () => {
+            if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
+                window.location.href = "order.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        };
+
+        popupConfirmOrder();
+
+    } else {
+        alert("Le formulaire n'est pas correctement rempli");
+        
+        /****Envoie dans localStorage */
+        localStorage.setItem("contact", JSON.stringify(contact));
     };
 
-/**********************************Envoie vers le serveur */
-let products = [];
-for (let n = 0; n < productInLocalStorage.length; n++) {
-  products.push(productInLocalStorage[n]._id);
-};
+    /**********************************Envoie vers le serveur */
+    let products = [];
+    for (let n = 0; n < productInLocalStorage.length; n++) {
+        products.push(productInLocalStorage[n]._id);
+    };
 
     const formToServer = {
         contact,
         products,
     };
-const promise01 = fetch("http://localhost:3000/api/teddies/order", {
-    method: "POST",
-    body : JSON.stringify(formToServer),
-    headers: {
-        "Content-Type": "application/json",
-    },
-});
+    const promise01 = fetch("http://localhost:3000/api/teddies/order", {
+        method: "POST",
+        body: JSON.stringify(formToServer),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 
-console.log(formToServer);
+    console.log(formToServer);
 
-promise01.then(async(response)=>{
-    try{
-        const content = await response.json();
-        console.log(content.orderId);
-        if(response.ok){
- console.log(`OrderId = ${content.orderId}`)
- /*****************Récupération de l'orderId */
- localStorage.setItem("orderId", content.orderId);
-        }else{
-console.log(`Réponse du serveur : ${reponse.status}`);
-alert(`Problème avec le serveur : erreur ${reponse.status}`)
-        };
+    promise01.then(async (response) => {
+        try {
+            const content = await response.json();
+            console.log(content.orderId);
+            if (response.ok) {
+                console.log(`OrderId = ${content.orderId}`)
+                /*****************Récupération de l'orderId */
+                localStorage.setItem("orderId", content.orderId);
+            } else {
+                console.log(`Réponse du serveur : ${reponse.status}`);
+                alert(`Problème avec le serveur : erreur ${reponse.status}`)
+            };
 
-    }catch(e){
-        console.log(e);
-    }
-});
-
-
+        } catch (e) {
+            console.log(e);
+        }
+    });
 
 
-/*****************************************Confirmer la commande */
 
-    /*************************Fenêtre popup de confirmation */
 
-   const popupConfirmOrder = () => {
-      if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
-        window.location.href = "order.html";
-      } else {
-        window.location.href = "index.html";
-      }
-    };
-
-    popupConfirmOrder();
 
 });
 

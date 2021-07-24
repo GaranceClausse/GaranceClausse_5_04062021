@@ -1,4 +1,8 @@
 /****************************** Mise en page de la page index */
+
+/*****************************Html du bouton panier */
+
+
 let displayProduct = teddies => {
 
   for (let i = 1; i < teddies.length; i++) {
@@ -356,7 +360,6 @@ let displayProductItem = productSelected => {
     /*************************Stocker les valeurs dans local storage + fenêtre popup de confirmation */
 
     let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
-    console.log(productInLocalStorage);
     const popupConfirm = () => {
       if (window.confirm(`Votre ours : ${productSelected.name} à ${productSelected.price / 100} € a bien été ajouté au panier!
   Consulter le panier ou continuer mes achats?`)) {
@@ -366,30 +369,65 @@ let displayProductItem = productSelected => {
       }
     };
 
+    const popupAlreadyConfirm = () => {
+      if (window.confirm(`Votre ours : ${productSelected.name} à ${productSelected.price / 100} € est déjà dans le panier! La quantité a été mise à jour.
+  Consulter le panier ou continuer mes achats?`)) {
+        window.location.href = "cart.html";
+      } else {
+        window.location.href = "index.html";
+      }
+    };
+
+
+
     productSelected.quantity = 0;
     //voir s'il y a produit dans le panier//
     if (productInLocalStorage === null) {
       productInLocalStorage = [];
-      console.log("if");
-      productSelected.quantity+= 1;
+      productSelected.quantity += 1;
       productInLocalStorage.push(productSelected);
       localStorage.setItem("products", JSON.stringify(productInLocalStorage));
       popupConfirm();
-    }else{
-      for (let v = 0; v < productInLocalStorage.length; v++) {
-        if (productInLocalStorage[v]._id === productSelected._id) {
-          console.log(productInLocalStorage[v].quantity);
-         let nb = localStorage.getItem(productInLocalStorage[v].quantity);
-         nb++;
-        } else if (productInLocalStorage[v]._id !== productSelected._id) {
+    } else {
+        if (productInLocalStorage.every(e => e._id !== productSelected._id)) {
+          console.log("if");
+          productSelected.quantity += 1;
           productInLocalStorage.push(productSelected);
           localStorage.setItem("products", JSON.stringify(productInLocalStorage));
           popupConfirm();
-        }       
-        ;
+        } else {
+          console.log("esleif");
+          console.log(productSelected.quantity);
+          productSelected.quantity += 3;          
+          console.log(productSelected.quantity);   
+          productInLocalStorage.push(productSelected);
+          localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+          popupAlreadyConfirm();
+        };
       };
-    };
+    
+    //voir s'il y a produit dans le panier//
+    /*if (productInLocalStorage === null || productInLocalStorage[v]._id === productSelected._id) {
+      productInLocalStorage = [];
+      console.log("if");
+      productSelected.quantity += 1;
+      productInLocalStorage.push(productSelected);
+      localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+      popupConfirm();
+    } else if (productInLocalStorage[v]._id !== productSelected._id) {
+      productInLocalStorage.push(productSelected);
+      localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+      popupConfirm();
+    };*/
+
+
   });
+  /******************Bouton rond panier */
+  let cartBtnPill = document.querySelectorAll("cartBtn");
+  cartBtnPill = document.createElement("span");
+  cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
+  cartBtnPill.innerHTML = productInLocalStorage.length;
+  $(".cartBtn").append(cartBtnPill);
 
 };
 

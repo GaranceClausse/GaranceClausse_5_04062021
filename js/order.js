@@ -7,7 +7,7 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
 /***Mettre les valeurs dans une array */
 let totalPriceFinal = [];
 for (let p = 0; p < productInLocalStorage.length; p++) {
-    totalPriceFinal.push(productInLocalStorage[p].price);
+    totalPriceFinal.push(productInLocalStorage[p].price * productInLocalStorage[p].quantity);
 }
 /*******Addition des valeurs de la liste */
 const reducer = (acc, cur) => acc + cur;
