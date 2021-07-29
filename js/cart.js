@@ -31,7 +31,7 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
 
     /* Ajout des articles */
 
-    for (k = 0; k < productInLocalStorage.length; k++) {
+    for (let k = 0; k < productInLocalStorage.length; k++) {
 
         let sub_container_cart = document.createElement("div");
         sub_container_cart.className = "pt-4 wish-list sub_container_cart" + k;
@@ -88,20 +88,26 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         teddy_quantity_cart.className = "def-number-input number-input safari_only mb-0 w-100 teddy_quantity_cart" + k;
         $(".sub_item_cart_card" + k).append(teddy_quantity_cart);
 
+
+        /***************Prise en compte de la quantité dans le localStorage */
+
+
         let product_quantity_cart = document.createElement("input");
         product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
+        product_quantity_cart.id = "product_quantity_cart" + k;
         product_quantity_cart.type = "number";
         product_quantity_cart.min = "0";
-        product_quantity_cart.value = (1, productInLocalStorage[k].quantity);
-        product_quantity_cart.oninput =  
+        product_quantity_cart.setAttribute("value", productInLocalStorage[k].quantity);
         $(".teddy_quantity_cart" + k).append(product_quantity_cart);
 
 
-        /***************Prise en compte de la quantité dans le localStorage */ 
-        let productQuantityListener = document.getElementsByClassName("quantity");
-        console.log(productQuantityListener); 
-        productInLocalStorage.quantity = document.getElementById("product_quantity_cart".value);
-        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+        let quantityListener = document.getElementById("product_quantity_cart" + k);
+        let buttonId = k;
+        quantityListener.oninput = () => {
+            productInLocalStorage[buttonId].quantity = quantityListener.value;
+            localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+            window.location.reload();
+        };
 
         let remove_cart = document.createElement("div");
         remove_cart.className = "d-flex justify-content-between align-items-center remove_cart" + k;
@@ -126,15 +132,12 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         let separationItem = document.createElement("hr");
         separationItem.className = "mb-4" + k;
         $(".sub_container_cart" + k).append(separationItem);
-
-
-
     }
 
 };
 /*****************************Html du bouton panier */
 
-let cartBtnPill = document.querySelectorAll("cartBtn");
+let cartBtnPill = document.querySelector("cartBtn");
 cartBtnPill = document.createElement("span");
 cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
 cartBtnPill.innerHTML = productInLocalStorage.length;
@@ -189,7 +192,7 @@ const total_price = total_price_calcul.reduce(reducer, 0);
 
 let cart_price_title = document.createElement("h5");
 cart_price_title.className = "mb-3 cart_price_title";
-cart_price_title.innerHTML = "Prix total"
+cart_price_title.innerHTML = "Prix total";
 $("#cart_price").append(cart_price_title);
 
 let cart_price_list = document.createElement("ul");
@@ -200,7 +203,7 @@ $("#cart_price").append(cart_price_list);
 /****************Récapitulatif prix commande */
 let cart_price_list_total = document.createElement("li");
 cart_price_list_total.className = "list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 cart_price_list_total";
-cart_price_list_total.innerHTML = "Prix de vos produits :  ";
+cart_price_list_total.innerHTML = "Prix :  ";
 $(".cart_price_list").append(cart_price_list_total);
 
 let totalPrice = document.createElement("span");
@@ -240,9 +243,6 @@ $(".formContainer").append(formTitle);
 let formField = document.createElement("form");
 formField.className = "p-3 formField";
 $(".formContainer").append(formField);
-
-
-
 
 /**Nom */
 let formGroup1 = document.createElement("div");
@@ -441,21 +441,9 @@ btnSendFrom.addEventListener("click", (e) => {
 
         /*****************************************Confirmer la commande */
 
-        /*************************Fenêtre popup de confirmation */
-
-        const popupConfirmOrder = () => {
-            if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
-                window.location.href = "order.html";
-            } else {
-                window.location.href = "index.html";
-            }
-        };
-
-        popupConfirmOrder();
-
     } else {
         alert("Le formulaire n'est pas correctement rempli");
-        
+
         /****Envoie dans localStorage */
         localStorage.setItem("contact", JSON.stringify(contact));
     };
@@ -470,7 +458,7 @@ btnSendFrom.addEventListener("click", (e) => {
         contact,
         products,
     };
-    const promise01 = fetch("http://localhost:3000/api/teddies/order", {
+    let promise01 = fetch("http://localhost:3000/api/teddies/order", {
         method: "POST",
         body: JSON.stringify(formToServer),
         headers: {
@@ -486,6 +474,7 @@ btnSendFrom.addEventListener("click", (e) => {
             console.log(content.orderId);
             if (response.ok) {
                 console.log(`OrderId = ${content.orderId}`)
+
                 /*****************Récupération de l'orderId */
                 localStorage.setItem("orderId", content.orderId);
             } else {
@@ -495,13 +484,21 @@ btnSendFrom.addEventListener("click", (e) => {
 
         } catch (e) {
             console.log(e);
-        }
+        };
     });
 
 
+    /*************************Fenêtre popup de confirmation */
 
+    const popupConfirmOrder = () => {
+        if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
+            window.location.href = "order.html";
+        } else {
+            window.location.href = "index.html";
+        }
+    };
 
-
+    popupConfirmOrder();
 });
 
 
@@ -511,10 +508,6 @@ const dataLocalStorage = localStorage.getItem("contact");
 const dataLocalStorageJS = JSON.parse(dataLocalStorage);
 
 /**Mettre les values dans les champs */
-/*function fillFormInputFromLocalStorage(input) {
- document.querySelector(`#${input}`).value = dataLocalStorageJS.input;
-};
-fillFormInputFromLocalStorage("prénom");*/
 document.querySelector("#name").value = dataLocalStorageJS.lastName;
 document.querySelector("#surname").value = dataLocalStorageJS.firstName;
 document.querySelector("#formEmail").value = dataLocalStorageJS.email;
