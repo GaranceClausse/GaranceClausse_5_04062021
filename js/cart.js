@@ -88,20 +88,31 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         teddy_quantity_cart.className = "def-number-input number-input safari_only mb-0 w-100 teddy_quantity_cart" + k;
         $(".sub_item_cart_card" + k).append(teddy_quantity_cart);
 
+
+        /***************Prise en compte de la quantité dans le localStorage */
+
+
         let product_quantity_cart = document.createElement("input");
         product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
+        product_quantity_cart.id = "product_quantity_cart" + k;
         product_quantity_cart.type = "number";
         product_quantity_cart.min = "0";
-        product_quantity_cart.value = (1, productInLocalStorage[k].quantity);
-        product_quantity_cart.oninput =  
+        product_quantity_cart.setAttribute("value", productInLocalStorage[k].quantity);
+        console.log(k);
         $(".teddy_quantity_cart" + k).append(product_quantity_cart);
+        
+        
+        let quantityListener = document.getElementById("product_quantity_cart" + k);
+        
+        console.log(quantityListener);
+        quantityListener.oninput = function(){
+            console.log("product_quantity_cart" + k);
+            console.log(productInLocalStorage[k-1])
+            productInLocalStorage[k-1].quantity = quantityListener.value;
+            localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+            window.location.reload();
+        };
 
-
-        /***************Prise en compte de la quantité dans le localStorage */ 
-        let productQuantityListener = document.getElementsByClassName("quantity");
-        console.log(productQuantityListener); 
-        productInLocalStorage.quantity = document.getElementById("product_quantity_cart".value);
-        localStorage.setItem("products", JSON.stringify(productInLocalStorage));
 
         let remove_cart = document.createElement("div");
         remove_cart.className = "d-flex justify-content-between align-items-center remove_cart" + k;
@@ -126,15 +137,12 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         let separationItem = document.createElement("hr");
         separationItem.className = "mb-4" + k;
         $(".sub_container_cart" + k).append(separationItem);
-
-
-
     }
 
 };
 /*****************************Html du bouton panier */
 
-let cartBtnPill = document.querySelectorAll("cartBtn");
+let cartBtnPill = document.querySelector("cartBtn");
 cartBtnPill = document.createElement("span");
 cartBtnPill.className = "badge bg-dark text-white ms-1 rounded-pill cart_item badge-pill";
 cartBtnPill.innerHTML = productInLocalStorage.length;
@@ -455,7 +463,7 @@ btnSendFrom.addEventListener("click", (e) => {
 
     } else {
         alert("Le formulaire n'est pas correctement rempli");
-        
+
         /****Envoie dans localStorage */
         localStorage.setItem("contact", JSON.stringify(contact));
     };
@@ -497,11 +505,6 @@ btnSendFrom.addEventListener("click", (e) => {
             console.log(e);
         }
     });
-
-
-
-
-
 });
 
 
@@ -511,10 +514,6 @@ const dataLocalStorage = localStorage.getItem("contact");
 const dataLocalStorageJS = JSON.parse(dataLocalStorage);
 
 /**Mettre les values dans les champs */
-/*function fillFormInputFromLocalStorage(input) {
- document.querySelector(`#${input}`).value = dataLocalStorageJS.input;
-};
-fillFormInputFromLocalStorage("prénom");*/
 document.querySelector("#name").value = dataLocalStorageJS.lastName;
 document.querySelector("#surname").value = dataLocalStorageJS.firstName;
 document.querySelector("#formEmail").value = dataLocalStorageJS.email;
