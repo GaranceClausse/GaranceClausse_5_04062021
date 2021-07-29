@@ -439,6 +439,18 @@ btnSendFrom.addEventListener("click", (e) => {
         /****Envoie dans localStorage */
         localStorage.setItem("contact", JSON.stringify(contact));
 
+        /*************************Fenêtre popup de confirmation */
+
+        const popupConfirmOrder = () => {
+            if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
+                window.location.href = "order.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        };
+
+        popupConfirmOrder();
+
         /*****************************************Confirmer la commande */
 
     } else {
@@ -466,12 +478,9 @@ btnSendFrom.addEventListener("click", (e) => {
         },
     });
 
-    console.log(formToServer);
-
     promise01.then(async (response) => {
         try {
             const content = await response.json();
-            console.log(content.orderId);
             if (response.ok) {
                 console.log(`OrderId = ${content.orderId}`)
 
@@ -488,17 +497,6 @@ btnSendFrom.addEventListener("click", (e) => {
     });
 
 
-    /*************************Fenêtre popup de confirmation */
-
-    const popupConfirmOrder = () => {
-        if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
-            window.location.href = "order.html";
-        } else {
-            window.location.href = "index.html";
-        }
-    };
-
-    popupConfirmOrder();
 });
 
 
