@@ -1,8 +1,4 @@
-
-
 let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
-
-
 
 /* si le panier est vide */
 if (productInLocalStorage === null || productInLocalStorage == 0) {
@@ -12,10 +8,8 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         emptyCart.className = "p-4 text-center display-2 emptyCart";
         emptyCart.innerHTML = "Le panier est vide!"
         $("#big_cart_container").prepend(emptyCart);
-    })
-
+    });
 } else {
-
     /**************************************************Création de la page panier de manière dynamique */
 
     /* Création container */
@@ -30,13 +24,11 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
     $(".container_cart").append(title_cart);
 
     /* Ajout des articles */
-
     for (let k = 0; k < productInLocalStorage.length; k++) {
 
         let sub_container_cart = document.createElement("div");
         sub_container_cart.className = "pt-4 wish-list sub_container_cart" + k;
         $(".container_cart").append(sub_container_cart);
-
 
         let container_cart_card = document.createElement("div");
         container_cart_card.className = "row mb-4 container_cart_card" + k;
@@ -91,7 +83,6 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
 
         /***************Prise en compte de la quantité dans le localStorage */
 
-
         let product_quantity_cart = document.createElement("input");
         product_quantity_cart.className = "quantity form-control text-center me-3 ps-2 pe-1 product_quantity_cart" + k;
         product_quantity_cart.id = "product_quantity_cart" + k;
@@ -99,7 +90,6 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         product_quantity_cart.min = "0";
         product_quantity_cart.setAttribute("value", productInLocalStorage[k].quantity);
         $(".teddy_quantity_cart" + k).append(product_quantity_cart);
-
 
         let quantityListener = document.getElementById("product_quantity_cart" + k);
         let buttonId = k;
@@ -133,7 +123,6 @@ if (productInLocalStorage === null || productInLocalStorage == 0) {
         separationItem.className = "mb-4" + k;
         $(".sub_container_cart" + k).append(separationItem);
     }
-
 };
 /*****************************Html du bouton panier */
 
@@ -170,7 +159,8 @@ $("#cart_container").append(remove_all_btn);
 /*Supprimer la key produit du LocalStorage*/
 let delete_all_btn = document.querySelector(".delete_all_btn");
 delete_all_btn.addEventListener("click", (e) => {
-    localStorage.removeItem("products");
+    localStorage.removeItem("products");    
+    window.location.reload();
     alert("Votre panier a bien été vidé!");
     window.location.href = "cart.html";
 });
@@ -188,7 +178,6 @@ for (let m = 0; m < productInLocalStorage.length; m++) {
 /*******Addition des valeurs de la liste */
 const reducer = (acc, cur) => acc + cur;
 const total_price = total_price_calcul.reduce(reducer, 0);
-
 
 let cart_price_title = document.createElement("h5");
 cart_price_title.className = "mb-3 cart_price_title";
@@ -288,7 +277,6 @@ let formGroup3 = document.createElement("div");
 formGroup3.className = "p-1 formGroup3";
 $(".formContainer").append(formGroup3);
 
-
 let formEmail = document.createElement("label");
 formEmail.className = "formEmail";
 formEmail.htmlFor = "email";
@@ -303,11 +291,9 @@ formEmailInput.placeholder = "Tapez votre Email";
 $(".formGroup3").append(formEmailInput);
 
 /****Adresse de livraison */
-
 let formGroup4 = document.createElement("div");
 formGroup4.className = "p-1 formGroup4";
 $(".formContainer").append(formGroup4);
-
 
 let formAdress = document.createElement("label");
 formAdress.className = "formAdress";
@@ -324,11 +310,9 @@ formAdressInput.placeholder = "N°, nom de rue, code postal \u000AExemple : 42 r
 $(".formGroup4").append(formAdressInput);
 
 /****Ville */
-
 let formGroup5 = document.createElement("div");
 formGroup5.className = "p-1 formGroup5";
 $(".formContainer").append(formGroup5);
-
 
 let formCity = document.createElement("label");
 formCity.className = "formCity";
@@ -342,7 +326,6 @@ formCityInput.id = "formCity";
 formCityInput.placeholder = "Ville";
 $(".formGroup5").append(formCityInput);
 
-
 /******Bouton de commande */
 let orderButton = document.createElement("button");
 orderButton.className = "btn btn-primary btn-block p-3 mt-5 w-100 rounded orderButton";
@@ -353,7 +336,6 @@ orderButton.innerHTML = "Finaliser ma commande";
 $("#cart_price").append(orderButton);
 
 /******************************Envoie du formulaire dans localStorage */
-
 /*******************Add event listener du boutton commande */
 const btnSendFrom = document.querySelector("#orderButton");
 btnSendFrom.addEventListener("click", (e) => {
@@ -448,10 +430,7 @@ btnSendFrom.addEventListener("click", (e) => {
                 window.location.href = "index.html";
             }
         };
-
         popupConfirmOrder();
-
-        /*****************************************Confirmer la commande */
 
     } else {
         alert("Le formulaire n'est pas correctement rempli");
@@ -498,7 +477,6 @@ btnSendFrom.addEventListener("click", (e) => {
 
 
 });
-
 
 /***Laisser les valeurs du localStorage dans le formulaire */
 /**Récupérer la key : value  */
