@@ -159,7 +159,7 @@ $("#cart_container").append(remove_all_btn);
 /*Supprimer la key produit du LocalStorage*/
 let delete_all_btn = document.querySelector(".delete_all_btn");
 delete_all_btn.addEventListener("click", (e) => {
-    localStorage.removeItem("products");    
+    localStorage.removeItem("products");
     window.location.reload();
     alert("Votre panier a bien été vidé!");
     window.location.href = "cart.html";
@@ -414,31 +414,6 @@ btnSendFrom.addEventListener("click", (e) => {
         };
     };
 
-
-    /**************************Envoie des données si tous les champs sont bons */
-    if (nameControl() && surnameControl() && emailControl() && adressControl() && cityControl()) {
-
-        /****Envoie dans localStorage */
-        localStorage.setItem("contact", JSON.stringify(contact));
-
-        /*************************Fenêtre popup de confirmation */
-
-        const popupConfirmOrder = () => {
-            if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
-                window.location.href = "order.html";
-            } else {
-                window.location.href = "index.html";
-            }
-        };
-        popupConfirmOrder();
-
-    } else {
-        alert("Le formulaire n'est pas correctement rempli");
-
-        /****Envoie dans localStorage */
-        localStorage.setItem("contact", JSON.stringify(contact));
-    };
-
     /**********************************Envoie vers le serveur */
     let products = [];
     for (let n = 0; n < productInLocalStorage.length; n++) {
@@ -476,6 +451,32 @@ btnSendFrom.addEventListener("click", (e) => {
     });
 
 
+
+    /**************************Envoie des données si tous les champs sont bons */
+    if (nameControl() && surnameControl() && emailControl() && adressControl() && cityControl()) {
+
+        /****Envoie dans localStorage */
+        localStorage.setItem("contact", JSON.stringify(contact));
+
+        /*************************Fenêtre popup de confirmation */
+
+        const popupConfirmOrder = () => {
+            if (window.confirm(`Confirmer votre commande ou continuer vos achats?`)) {
+                window.location.href = "order.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        };
+        popupConfirmOrder();
+
+    } else {
+        alert("Le formulaire n'est pas correctement rempli");
+
+        /****Envoie dans localStorage */
+        localStorage.setItem("contact", JSON.stringify(contact));
+    };
+
+
 });
 
 /***Laisser les valeurs du localStorage dans le formulaire */
@@ -489,6 +490,3 @@ document.querySelector("#surname").value = dataLocalStorageJS.firstName;
 document.querySelector("#formEmail").value = dataLocalStorageJS.email;
 document.querySelector("#formAdress").value = dataLocalStorageJS.address;
 document.querySelector("#formCity").value = dataLocalStorageJS.city;
-
-
-

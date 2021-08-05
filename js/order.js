@@ -1,6 +1,4 @@
-
 /************************************* Mise en page de la confirmation de commande*/
-
 let productInLocalStorage = JSON.parse(localStorage.getItem("products"));
 
 /* *****************************Insertion du prix total */
